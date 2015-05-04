@@ -44,10 +44,10 @@ comments: true
    1.Read open source code(nginx, redis).
    2.Some useful tools like vim, bash, git, try to be familar with them again and again.
    3.Research the data structure about the surrounding instance like pdf and ppt, and try to parse them.
-   4.Reconstruct a more powerful web crawler, with some more effective skills, like bfs/dfs,
-   TF/IDF, page's rank.
+   4.Reconstruct a more powerful web crawler, with some more effective skills, like bfs/dfs, TF/IDF, page's rank.
    5.Read papers like GFS, RTrees and so on.
 ```
+
 
 * Due time of this schedule, September 15, 2015.
 * The more, the better.
