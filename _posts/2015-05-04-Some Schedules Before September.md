@@ -9,6 +9,7 @@ comments: true
    Anyway, I got the ticket for a master study in SJTU's CS department. And, the four months I own is extremly precious. I set some specify goals for me in these months, and as a inspiration, I put it on this blog as the first one of this series.
     
    Also, before finding a more effective way to record the knowledge, I will continue to use github.io as home to recore and share what I learn and what I consider. 
+![splendid days](/blog/img/PPCA2013)
 
 ##  Python
 ```
