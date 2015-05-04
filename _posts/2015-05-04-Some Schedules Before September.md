@@ -19,7 +19,7 @@ comments: true
 
 # * Algorithm
 ```
-1.Complete the `white book`'s algorithm and homework.
-2.Foucs energy on 'Dynamic programming' and `Search` and `graph`.
-3.Write no less than `50 prob sloving reports`.
- ```
+   1.Complete the `white book`'s algorithm and homework.
+   2.Foucs energy on 'Dynamic programming' and `Search` and `graph`.
+   3.Write no less than `50 prob sloving reports`.
+```
