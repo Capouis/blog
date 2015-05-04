@@ -4,7 +4,8 @@ markdown: redcarpet
 safe: false
 highlighter: pygments
 title: tcOops
-description:   (Dream to be a geek)  (SJTU,CS,Master)   (C++, Python, C#)   (BigData, Function Programming, Algorithm)
+description:   (Dream to be a geek)  (SJTU,CS,Master)   (C++, Python, C#)  
+(BigData, Function Programming, Algorithm)
 theme: midnight
 disqusname: minixalpha
 
