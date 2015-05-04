@@ -1,5 +1,5 @@
 username: tcoops
-baseurl: /StrayBirds
+baseurl: /
 markdown: redcarpet
 safe: false
 highlighter: pygments
