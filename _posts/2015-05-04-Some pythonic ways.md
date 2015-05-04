@@ -10,8 +10,8 @@ comments: true
 
 * 2015/5/4
 1 关于快速排序， 仿造C++的快速排序写法可以写出风格比较相近的python code:
-```
-void foo(int s, int e){
+
+```void foo(int s, int e){
 	if(s >= e) return;
 	int fst = a[s];
 	int i = s, j = e;
@@ -24,9 +24,10 @@ void foo(int s, int e){
 	a[i] = fst;
 	if(i > s) foo(s, i-1);
 	if(i < e) foo(i+1, e);
-} 
-```
+} ```
+
 但是很容易写的不够pythonic， 比较pythonic的写法是：
+
 ```
 def quicksort(array):
     less = []
