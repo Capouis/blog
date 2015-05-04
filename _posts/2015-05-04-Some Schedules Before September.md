@@ -37,7 +37,7 @@ comments: true
    3.USACO first four chapters(I have completed the first three chapters and review it).
 ```
 
-# *Optional ones and Others
+# * Optional ones and Others
 ```
    1.Read open source code(nginx, redis).
    2.Some useful tools like vim, bash, git, try to be familar with them again and again.
