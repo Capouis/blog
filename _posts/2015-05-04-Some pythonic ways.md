@@ -45,11 +45,15 @@ def quicksort(array):
     return quicksort(less) + [p] + quicksort(greater)
 ```
 
+
+
 2 交换两个数
 
 在其他语言中， 交换两个数最常见的做法是加入一个中间值作为一个临时仓库（当然可以通过^避免中间变量：a ^= b, b ^= a, a ^= b），
 而在python中一切都变得简单了：
 a, b = b, a 就可以交换两个数的值， 原因在于后面的b, a可以看成一个tuple,  tuple是不可变类型。
+
+
 
 3 字符串连接的问题
  
