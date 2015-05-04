@@ -12,15 +12,15 @@ comments: true
 
 ##  Python
 ```
-   1. Use python to solve the problems in `leetcode`(Complete the `first hundred Pros`).
-   2. Realize the simple projects in `python book`.
+   1. Use python to solve the problems in leetcode(Complete the first hundred Pros).
+   2. Realize the simple projects in python book.
    3. View `stack overflow` and answer the questions in the part of python.
 ```
 
 ##  Algorithm
 ```
-   1.Complete the `white book`'s algorithm and homework.
-   2.Foucs energy on 'Dynamic programming' and `Search` and `graph`.
+   1.Complete the white book's algorithm and homework.
+   2.Foucs energy on Dynamic programming and Search and graph.
    3.Write no less than `50 prob sloving reports`.
 ```
 
