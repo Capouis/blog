@@ -4,7 +4,7 @@ markdown: redcarpet
 safe: false
 highlighter: pygments
 title: tcOops
-description:  Geek,  SJTU|CS|Master,  C++|Python|C#,                BigData|Function Programming|Algorithm
+description:  Geek,  SJTU|CS|Master,  C++|Python|C#, \n BigData|Function Programming|Algorithm
 theme: midnight
 disqusname: minixalpha
 
