@@ -10,7 +10,7 @@ comments: true
 
 * 2015/5/4
 
-<code>1 关于快速排序，仿造C++的快速排序写法可以写出风格比较相近的python code:</code>
+1 关于快速排序，仿造C++的快速排序写法可以写出风格比较相近的python code:
 
 ```
 void foo(int s, int e){
