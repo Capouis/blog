@@ -10,11 +10,11 @@ comments: true
     
    Also, before finding a more effective way to record the knowledge, I will continue to use github.io as home to recore and share what I learn and what I consider. Take a gradtitude for your support!
 
-* #Python
+# *Python
 ```
-1. Use python to solve the problems in `leetcode`(Complete the `first hundred Pros`).
-2. Realize the simple projects in `python book`.
-3. View `stack overflow` and answer the questions in the part of python.
+   1. Use python to solve the problems in `leetcode`(Complete the `first hundred Pros`).
+   2. Realize the simple projects in `python book`.
+   3. View `stack overflow` and answer the questions in the part of python.
 ```
 
 * #Algorithm
