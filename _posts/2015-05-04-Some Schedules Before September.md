@@ -23,3 +23,29 @@ comments: true
    2.Foucs energy on 'Dynamic programming' and `Search` and `graph`.
    3.Write no less than `50 prob sloving reports`.
 ```
+
+# * Reading
+```
+   1.SICP(Structure and interpretation of computer programs) and homework.
+   2.Some important chapters in CSAPP and do some import labs(like bomb).
+```
+
+# * PPCA(ACM Class)
+```
+   1.Read the document I have gathered.
+   2.Try to do projects(scheme interpretator, AI, github.io for personal blog, mediawiki for homepage).
+   3.USACO first four chapters(I have completed the first three chapters and review it).
+```
+
+# *Optional ones and Others
+```
+   1.Read open source code(nginx, redis).
+   2.Some useful tools like vim, bash, git, try to be familar with them again and again.
+   3.Research the data structure about the surrounding instance like pdf and ppt, and try to parse them.
+   4.Reconstruct a more powerful web crawler, with some more effective skills, like bfs/dfs, TF/IDF, page's rank.
+   5.Read papers like GFS, RTrees and so on.
+```
+
+* Due time of this schedule, September 15, 2015.
+* The more, the better.
+* Record some important things in time.
