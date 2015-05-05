@@ -113,7 +113,7 @@ print z
 a, b = ["a", "b", "c"], [1,2,3]
 m = dict(zip(a, b))
 ```
-<br/> <br/>
+<br/>
 
 7 range 与 xrange
 
