@@ -7,7 +7,7 @@ comments: true
 * 1.1
 Skip<br/>
 
-*1.2
+* 1.2
 前缀形式： 
 
 ```
