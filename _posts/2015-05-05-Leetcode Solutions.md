@@ -6,7 +6,7 @@ comments: true
 
 leetcode链接： [leetcode]("https://leetcode.com/problemset/algorithms/")
 
-先用python刷一遍leetcode， 有空请期待我第二版用C++刷。
+先用python刷一遍leetcode， 请期待我第二版用C++刷。
 
 * Two Sum
 给定一个target与一个列表， 求列表中两个数的和为target， 返回两个数下标。
