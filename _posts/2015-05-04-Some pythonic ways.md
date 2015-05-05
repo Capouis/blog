@@ -116,6 +116,7 @@ m = dict(zip(a, b))
 <br/> <br/>
 
 7 range 与 xrange
+
 a = [i for i in xrange(5)]   和  a = (i for i in xrange(5)) 虽然看上去是一样都生成了5个元素，但是
 前者是一个list对象， 如果遍历的话 for item in a 就会一下子返回全部元素然后再遍历， 而后者是个generator，
 用for item in a遍历是每次只是返回一个元素， 这样的好处是省内存（在list很大的情况下）。
@@ -123,5 +124,6 @@ a = [i for i in xrange(5)]   和  a = (i for i in xrange(5)) 虽然看上去是�
 
 
 8 用Decorator抽离公用代码或者解耦
+
 在django里面， 装饰器用的非常多，例如要对一个函数做cache，对一个操作限制权限，如果需求随时可能变化，就是说有可能不需要做cache或者不需要做权限的时候，你如果把实现放到这些函数体里面，那么这时你必须把这些代码删除，而且要很小心。但是如果你用decorator去做的话， 只要删除函数头顶上的@那一行就可以了, 非常的pythonic。
 <br/> <br/>
