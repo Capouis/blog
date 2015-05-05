@@ -6,9 +6,9 @@ comments: true
 
 ## The Words Before
 
-   Anyway, I got the ticket for a master study in SJTU's CS department. And, the four months I own is extremly precious. I set some specify goals for me in these months, and as a inspiration, I put it on this blog as the first one of this series.
+   Anyway, I got the ticket for a master study in SJTU's CS department. And, the four months I own is extremly precious. I set some specify goals for me in these months, and as a inspiration, I put it on this blog as the first one of these series.
     
-   Also, before finding a more effective way to record the knowledge, I will continue to use github.io as home to recore and share what I learn and what I consider.
+   Also, before finding a more effective way to record the knowledge, I will continue to use github.io as home to record and share what I learn and what I consider.
    
 ![splendid days](/blog/images/PPCA2013.png)
 
@@ -51,6 +51,6 @@ comments: true
 ```
 
 
-* Due time of this schedule, September 15, 2015.
+* Due time of these schedules, September 15, 2015.
 * The more, the better.
 * Record some important things in time.
