@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Algoithm : Dynamic Programming
+title: Algoithm  Dynamic Programming
 comments: true
 ---
 
