@@ -4,7 +4,7 @@ markdown: redcarpet
 safe: false
 highlighter: pygments
 title: tcOops
-description:  Pain builds character. 
+description: Thoughts and practice of Computer Science. 
 theme: slate
 disqusname: tcOops
 
