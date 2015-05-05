@@ -52,7 +52,7 @@ def quicksort(array):
 
 在其他语言中， 交换两个数最常见的做法是加入一个中间值作为一个临时仓库（当然可以通过^避免中间变量：a ^= b, b ^= a, a ^= b），
 而在python中一切都变得简单了：
-a, b = b, a 就可以交换两个数的值， 原因在于后面的b, a可以看成一个tuple,  tuple是不可变类型。
+a, b = b, a 就可以交换两个数的值，可以这样做的原因如下：首先python赋值表达式的顺序是先计算右边的表达式，因此会先在内存里创建元组(b, a), 然后通过UNpacking（解包）的方式一一赋值给a,b.
 
 <br/>
 <br/>
@@ -73,3 +73,29 @@ for i in list:
 list = ['a', 'b', 'c']  
 ans = ''.join(list) 
 ```
+<br/>
+<br/>
+
+4 输出列表的index和vlaue
+给定一个列表， 输出每个元素对应的下标以及值时候， 可以有很多种方式， 比如range()迭代， zip()等等，但是最好的方式还是用enumerate()
+```
+li = ['a', 'b', 'c', 'd']
+for idx, val in enumerate(li):
+    print idx, val
+```
+enumerate()是在python2.3中引入的， 也是为了解决在循环中获取索引以及对应值的问题， 它本质上也是通过生成器yield生成的， 所以调用enumerate()返回的是一个可迭代对象， 这样做的好处很明显：具有一定的惰性， 可以仅在需要的时候产生数据。
+<br/><br/>
+
+5 关于map, filter, reduce
+这几个都算是function programming的工具， 这里的function通常用匿名函数lambda来带入。其中reduce做一个递归计算， map对列表每一个元素做同样的操作， filter就是一个过滤器的作用。
+```
+z = reduce(lambda x, y: x+y, data, 0)   #reduce(function, sequence, starting_value)
+print z
+
+z = map(lambda x: x+1, data)   #map(function, sequence)
+print z
+
+z = filter(lambda x: x > 2, data)
+print z
+```
+需要注意的是python3之后， 这几个函数返回的不是一个列表， 而仅仅是一个可迭代对象。
