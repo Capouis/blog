@@ -6,7 +6,7 @@ highlighter: pygments
 title: tcOops
 description:  (Dream to be a geek),  (SJTU,CS,Master),   (C++, Python, C#), (BigData, Function Programming, Algorithm)
 theme: slate
-disqusname: minixalpha
+disqusname: tcOops
 
 # theme can be: hack, leap-day, merlot, midnight, minimal, modernist, slate, time-machine
 # those themes are all come from GitHub Pages Themes
