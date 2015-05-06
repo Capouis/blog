@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SICP Chapter One Exercises
+title: SICP - Chapter One Exercises
 comments: true
 ---
 
