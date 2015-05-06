@@ -88,3 +88,130 @@ class Solution:
         return ans
   ```
 <br/> <br/>
+
+* Median of Two Sorted Arrays
+
+给定两个升序序列， 求两个序列合并之后的中位数（合并之后， 重复元素不考虑去重）
+
+最简单的方法就是先求出合并序列
+
+```
+class Solution:
+    # @return a float
+    def findMedianSortedArrays(self, A, B):
+        m = len(A)
+        n = len(B)
+        c = []
+        i, j = 0, 0
+    
+        while i < m and j < n:
+            if A[i] < B[j]:
+                c.append(A[i])
+                i += 1
+            else:
+                c.append(B[j])
+                j += 1
+        if i < m:
+            while i < m:
+                c.append(A[i])
+                i += 1
+        if j < n:
+            while j < n:
+                c.append(B[j])
+                j += 1
+        
+        if (m + n) & 1:
+            return c[(i + j) // 2]
+        else:
+            return (c[(i + j) // 2 - 1] + c[(i + j) // 2]) / 2.0
+```
+
+或者用分治来解决：
+
+```
+# This solution convert this prob to find the Kth number of two string A and B
+class Solution:
+    # @return a float
+    def findMedianSortedArrays(self, A, B):
+        l = len(A) + len(B)
+        if l & 1:
+            return self.GetKthNumber(A, B, (l + 1) / 2)
+        else:
+            return (self.GetKthNumber(A, B, (l / 2)) + self.GetKthNumber(A, B, (l / 2) + 1)) / 2.0
+    
+    def GetKthNumber(self, A, B, K):
+        la, lb = len(A), len(B)
+        pa = min(K / 2, la)
+        pb = K - pa
+        if la > lb:
+            return self.GetKthNumber(B, A, K)
+        if la == 0:
+            return B[K - 1]
+        if K == 1:
+            return min(A[0], B[0])
+        if A[pa - 1] < B[pb - 1]:
+            return self.GetKthNumber(A[pa:], B, K - pa)
+        if A[pa - 1] > B[pb - 1]:
+            return self.GetKthNumber(A, B[pb:], K - pb)
+        if A[pa - 1] == B[pb - 1]:
+            return A[pa - 1]
+```
+<br/><br/>
+
+* Longest Palindromic Substring
+
+求一个字符串里面的最长回文子串
+比较朴素的做法： 枚举一个展开点， 从这一点往两边展开判断是否回文。
+可以参考leetcode给出的比较炫的做法： [blingbling]("http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html")
+
+```
+class Solution:
+    # @return a string
+    def longestPalindrome(self, s):
+        ans = ''
+        for i in range(len(s)):
+            l = self.fuckTheWorld(s, i, i)
+            if len(l) > len(ans):
+                ans = l
+            l = self.fuckTheWorld(s, i, i + 1)
+            if len(l) > len(ans):
+                ans = l
+        return ans
+    
+    def fuckTheWorld(self, s, l, r):
+        n = len(s)
+        while l >= 0 and r < n and s[l] == s[r]:
+            l -= 1
+            r += 1
+        return s[l + 1 : r]
+```
+<br/> <br/>
+
+* ZigZag Conversion 
+
+给出一个字符串， 这个字符串是按照NN这种（所谓的ZigZag）排列的， 现在需要输出他按行输出之后的序列。
+
+一道模拟题， 找到规律分析出对应关系就可以了。
+
+```
+class Solution:
+    # @return a string
+    def convert(self, s, nRows):
+        if nRows <= 1 or len(s) == 0:
+            return s
+        ans = ''
+        for i in range(nRows):
+            k, j = 1, i
+            while j < len(s):
+                ans += s[j]
+                if i == 0 or i == nRows - 1:
+                    step = (nRows << 1) - 2
+                elif k & 1:
+                    step = (nRows << 1) - (i << 1) - 2
+                else:
+                    step = i << 1
+                j += step
+                k += 1
+                    
+        return ans
+```
