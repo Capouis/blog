@@ -4,7 +4,7 @@ markdown: redcarpet
 safe: false
 highlighter: pygments
 title: tcOops
-description: Thoughts and practice of Computer Science. 
+description: Thoughts and Practice of Computer Science. 
 theme: slate
 disqusname: tcOops
 
