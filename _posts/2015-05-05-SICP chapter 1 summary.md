@@ -13,7 +13,8 @@ Preface:
 或者可以自己手动实现一个scheme解释器。
 <br/><br/>
 
-fg                 ![SICP](/blog/images/SICP.png)
+![SICP](/blog/images/SICP.png)
+<img src="/uploadfile/201201/19/6011443968.jpg"  alt="郁金香" height="100px" width="200px"/>
 
 * 2015/5/5
 
