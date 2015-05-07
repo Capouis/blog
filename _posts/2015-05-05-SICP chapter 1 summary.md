@@ -13,7 +13,7 @@ Preface:
 或者可以自己手动实现一个scheme解释器。
 <br/><br/>
 
-                              ![SICP](/blog/images/SICP.png)
+fg                 ![SICP](/blog/images/SICP.png)
 
 * 2015/5/5
 
