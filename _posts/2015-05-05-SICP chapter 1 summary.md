@@ -14,7 +14,7 @@ Preface:
 <br/><br/>
 
 ![SICP](/blog/images/SICP.png)
-<img src="/uploadfile/201201/19/6011443968.jpg"  alt="郁金香" height="100px" width="200px"/>
+<img src="/blog/images/SICP.png"  alt="郁金香" height="100px" width="200px"/>
 
 * 2015/5/5
 
