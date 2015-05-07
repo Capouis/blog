@@ -14,7 +14,7 @@ Preface:
 <br/><br/>
 
 
-<img src="/blog/images/SICP.png"  alt="SICP" height="400px" width="400px"/>
+<img src="/blog/images/SICP.png"  alt="SICP" height="200px" width="200px" margin-left="300px"/>
 
 * 2015/5/5
 
