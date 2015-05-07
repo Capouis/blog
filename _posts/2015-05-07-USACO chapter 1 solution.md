@@ -4,7 +4,7 @@ title: USACO - Chapter One Solution
 comments: true
 ---
 
-提交地址： [USACO]("http://train.usaco.org/usacogate")
+提交地址： [USACO](http://train.usaco.org/usacogate)
 
 提交需要注意的地方：
 
