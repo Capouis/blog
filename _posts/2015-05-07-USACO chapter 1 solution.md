@@ -5,6 +5,7 @@ comments: true
 ---
 
 提交地址：  [USACO]("http://train.usaco.org/usacogate")
+
 提交需要注意的地方：
 * 每道题目均提交文件至USACO测试服务器， 每个提交文件开头格式为：
 
