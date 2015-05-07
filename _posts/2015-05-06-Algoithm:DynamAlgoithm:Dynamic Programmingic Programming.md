@@ -6,7 +6,7 @@ comments: true
 
  动态规划是计算机科学里面很重要的一类算法， 设计该算法有这么几个关键点：
  
-* `最优子结构` -> 为了能够DP， 首先保证问题本身具有`最优子结构（Optimal Substructure）`
+* `最优子结构` -> 为了能够DP， 首先保证问题本身具有最优子结构（Optimal Substructure）
 
 * `最优子结构` -> 为了能够DP， 首先保证问题本身具有最优子结构（Optimal Substructure）
  
