@@ -3,7 +3,7 @@ layout: default
 title: USACO - Chapter One Solution
 comments: true
 ---
-
+ 
 提交地址： [USACO](http://train.usaco.org/usacogate)
 考虑到USACO经常挂掉，  可以在其他的地方进行测试， 比如：[USACO-Copy](http://cqoi.net:2012/problemset.php)
 
