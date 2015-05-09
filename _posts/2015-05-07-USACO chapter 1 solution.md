@@ -147,7 +147,7 @@ int main(){
 
 分析： 首先考虑闰年， 其次可先推算出1900年1月13号是星期六， 下面就开始进行模拟， 每隔七天循环一个星期 ，统计每个13号对应的星期几。
 
-```
+<code>
 /*
 ID: geek7774
 LANG: C++
@@ -187,7 +187,7 @@ int main(){
     printf("%d\n", ans[4]);
     return 0;
 }
-```
+</code>
 <br/>
 
 * Broken Necklace
