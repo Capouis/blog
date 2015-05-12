@@ -322,3 +322,167 @@ int main(){
 }
 ```
 <br/>
+
+* Transformations
+
+题意： 给出几种矩阵的转换方式， 包括选择，对称等， 给出A,B两个矩阵， 给出A->B可以由哪种转换得到， 要求编号最小
+
+分析： 分析A, B不同位置的数据是否满足特定的转换， 如果满足标记一下， 只有当所有的位置关系都能满足某种交换时， 这种交换才是有意义的
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK:
+*/
+#include<cstdio>
+#include<cstring>
+char a[11][11], b[11][11];
+int n, ans[10];
+
+void trans() {
+  memset(ans, 0, sizeof(ans));
+  for(int i = 1; i <= n; i++)
+    for(int j = 1; j <= n; j++){
+      if(a[i][j] == b[j][n-i+1]) ans[1]++;
+      if(a[i][j] == b[n-i+1][n-j+1]) ans[2]++;
+      if(a[i][j] == b[n-j+1][i]) ans[3]++;
+      if(a[i][j] == b[i][n-j+1]) ans[4]++;
+      if(a[i][j] == b[i][j]) ans[6]++;
+      if(a[i][n-j+1] == b[j][n-i+1]) ans[5]++;
+      if(a[i][n-j+1] == b[n-i+1][n-j+1]) ans[7]++;
+      if(a[i][n-j+1] == b[n-j+1][i]) ans[8]++;
+    }
+
+    for(int i = 1; i <= 8; i++){
+        if(ans[i] == n*n){
+            if(i < 7) printf("%d\n", i);
+            else printf("5\n");
+            return ;
+        }
+    }
+    printf("7\n");
+}
+
+int main(){
+    scanf("%d", &n);
+    for(int i = 1; i <= n; i++)
+       scanf("%s", a[i]+1);
+
+    for(int i = 1; i <= n; i++)
+       scanf("%s", b[i]+1);
+
+    trans();
+    return 0;
+}
+```
+<br/>
+
+* Name That Number
+
+题意： 给定一个英文词典， 已知每个数字对应一些字母， 现在给出一个数字串， 问可以映射出字典里面的哪些字符串
+
+分析： 在Nocow上面有一些类似hash这样的更好的做法， 但是考虑到这题的数据规模， 完全可以直接模拟解决
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK:
+*/
+#include<cstdio>
+#include<cstring>
+#include<iostream>
+using namespace std;
+const char code[26]={'2','2','2','3','3','3','4','4','4',
+'5','5','5','6','6','6','7','0','7','7','8','8','8','9','9','9','0'};
+char a[13],b[13];
+
+int main()
+{
+    freopen("namenum.in","r",stdin);
+    freopen("namenum.out","w",stdout);
+    freopen("dict.txt","r",stderr);
+    bool flag = 1;
+    cin >> a;
+
+    while (fscanf(stderr,"%s",b) != EOF){
+        bool sgn = 1;
+        if (strlen(a) != strlen(b)) continue;
+        for(int i = 0; b[i] && sgn; i++) sgn = sgn && (code[b[i]-'A']==a[i]);
+        if (sgn) flag = 0, cout << b <<endl;
+    }
+    if (flag) cout << "NONE" << endl;
+    return 0;
+}
+```
+<br/>
+
+* Palindromic Squares
+
+题意： 给出一个b代表进制数， 要求1-300之间平方数满足回文关系的数
+
+分析： 模拟题， 注意输出的时候是需要输出b进制下的数
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK:
+*/
+#include<cstdio>
+#include<cstring>
+#include<iostream>
+using namespace std;
+const int N = 1001;
+int a[N], b[N];
+
+int main(){
+    int bin;
+    scanf("%d", &bin);
+    for(int i = 1; i <= 300; ++i){
+        int j, k = i*i, cnt;
+        j = k;
+        cnt = 0;
+        while(j){
+            a[cnt++] = j%bin;
+            j /= bin;
+        }
+
+        bool suc = 1;
+        for(int j = 0; j < cnt/2; ++j){
+            if(a[j] != a[cnt-1-j]){
+                suc = 0;
+                break;
+            }
+        }
+        if(suc){
+            int cnt_ = 0, v = i;
+            while(v){
+                b[cnt_++] = v%bin;
+                v /= bin;
+            }
+            for(int j = cnt_-1; j >= 0; --j){
+                if(b[j] < 10){
+                    printf("%d", b[j]);
+                }
+                else{
+                    printf("%c", 'A'+b[j]-10);
+                }
+            }
+            printf(" ");
+            for(int j = cnt-1; j >= 0; --j){
+                if(a[j] < 10){
+                    printf("%d", a[j]);
+                }
+                else{
+                    printf("%c", 'A'+a[j]-10);
+                }
+            }
+            puts("");
+        }
+    }
+    return 0;
+}
+```
+<br/>
