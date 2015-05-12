@@ -5,7 +5,7 @@ title: tcOops' blog
 
 <ul class="post-list">
     {% for post in site.posts %}
-        <a href="{{site.baseurl}}{{post.url}}"> {{ post.title }}  </a>
+        <a href="{{site.baseurl}}{{post.url}}"> <font color=#40ca1d>{{ post.title }}</font></a>
         {{ post.date | date: "%F" }} <br>
     {% endfor %}
 </ul>
