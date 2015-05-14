@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Some pythonic methods in python
+title: Some Pythonic Methods in Python
 comments: true
 ---
 
