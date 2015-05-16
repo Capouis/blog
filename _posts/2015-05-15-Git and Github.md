@@ -17,7 +17,8 @@ comments: true
 第一步肯定是要安裝Git,  在ubuntu的終端下可以執行下面的命令：
 
 ```
-sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk git-email git-daemon-run git-el git-arch
+sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk git-email 
+git-daemon-run git-el git-arch
 ```
 
 <br/><br/>
@@ -29,14 +30,14 @@ sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk gi
 * 先檢查一下SSH能不能鏈接：
 
 ```
-    ssh -T git@github.com  
+ssh -T git@github.com  
 ```
 
 如果看到：
 
 ```
-    Warning: Permanently added ‘github.com,204.232.175.90′ (RSA) to the list of known hosts.  
-    Permission denied (publickey).  
+Warning: Permanently added ‘github.com,204.232.175.90′ (RSA) to the list of known hosts.  
+Permission denied (publickey).  
 ```
 则说明可以连接。
 
