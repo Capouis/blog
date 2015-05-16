@@ -10,7 +10,7 @@ comments: true
 * github是一个网站，给用户提供git服务。这样你就不用自己部署git系统，直接用注册个账号，用他们提供的git服务就可以
 
 大概介紹一下如何在github來管理自己的項目
-（有人曾經很有趣的這樣解釋過github :)  ---> [:)]("http://www.zhihu.com/question/20070065")
+（有人曾經很有趣的這樣解釋過github :)  ---> [:)](http://www.zhihu.com/question/20070065)
 
 ### <font color="red"> *安裝Git* </font>
 
