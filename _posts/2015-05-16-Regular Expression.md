@@ -4,7 +4,7 @@ title: Regular Expression
 comments: true
 ---
 
-正則表達式的著名文檔： [30分鐘入門正則表達式]("http://deerchao.net/tutorials/regex/regex.htm")
+正則表達式的著名文檔： [30分鐘入門正則表達式](http://deerchao.net/tutorials/regex/regex.htm)
 
 正則表達式是一種模式化的字符串匹配處理的工具。 定製規則進行文本處理， 類似的定製化處理方式在很多地方都會有體現， 比如markdown
 
