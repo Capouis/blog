@@ -80,9 +80,11 @@ sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk gi
 git clone url
 ```
 
-更爲常見的地方是在本地先創建項目， 然後使用git push到github上, 這裏細說一下步驟：
+*更爲常見的地方是在本地先創建項目， 然後使用git push到github上*, 這裏細說一下步驟：
+
 * 先在本地創建項目文件夾, 進入文件夾後：
 * 
+
 ```
 git init
 ```
