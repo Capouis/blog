@@ -5,6 +5,7 @@ comments: true
 ---
 
 首先區分git 與 github：
+
 * git是一种版本控制系统， 跟svn、cvs是同级的概念
 * github是一个网站，给用户提供git服务。这样你就不用自己部署git系统，直接用注册个账号，用他们提供的git服务就可以
 
@@ -32,6 +33,7 @@ sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk gi
 ```
 
 如果看到：
+
 ```
     Warning: Permanently added ‘github.com,204.232.175.90′ (RSA) to the list of known hosts.  
     Permission denied (publickey).  
@@ -73,18 +75,22 @@ sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk gi
 如果是主動創建項目， 可以先在github上先創建項目， 然後clone到本地。 github爲每個項目都提供了一個分支以及一個url進行標識。
 所謂分支是指一個項目不同的分流， 這些分流之間互不影響， 自成一派， 但是可以請求合併到主流中去。 根據github提供的url, 我們可以
 使用git將新創建的項目clone到本地
+
 ```
 git clone url
 ```
 
 更爲常見的地方是在本地先創建項目， 然後使用git push到github上, 這裏細說一下步驟：
 * 先在本地創建項目文件夾, 進入文件夾後：
+* 
 ```
 git init
 ```
 進行git環境的初始化。 
 
+
 * 初始化之后要爲項目創建一個分支名稱， 不創建默認應該是master分支， 你也可以使用
+
 ```
 git checkout --orphan gh-pages
 ```
@@ -94,15 +100,18 @@ gh-pages了）
 * 下面進行首次提交
 比如現在的本地項目文件夾爲空， 要首次創建一個read me 文件， 可以這樣：
 先在vim或者其他文件編輯器中編輯rrad me 文件， 然後在bash中進入項目所在文件夾：
+
 ```
 git status -s
 ```
 這句話可以看到當前環境下文件發生的變化， 會提醒你Add read me文件， 如果你想添加read me文件， 那麼可以輸入：
+
 ```
 git add read me
 ```
 當然你頁可以輸入： git add .   這裏的. 表示添加所有變動的文件， 同時要注意修改文件之后頁同樣使用git add
 下面要注意的是， 要執行這句話：
+
 ```
 git commit -m "log something"
 ```
