@@ -100,13 +100,14 @@ git checkout --orphan gh-pages
 gh-pages了）
 
 * 下面進行首次提交
+
 比如現在的本地項目文件夾爲空， 要首次創建一個read me 文件， 可以這樣：
-先在vim或者其他文件編輯器中編輯rrad me 文件， 然後在bash中進入項目所在文件夾：
+先在vim或者其他文件編輯器中編輯read me 文件， 然後在bash中進入項目所在文件夾：
 
 ```
 git status -s
 ```
-這句命令可以看到當前環境下文件發生的變化， 會提醒你Add read me文件， 如果你想添加read me文件， 那麼可以輸入：
+這句命令可以看到當前環境下文件發生的變化， 會提醒你Add read me文件, 如果你想添加read me文件, 那麼可以輸入：
 
 ```
 git add read me
