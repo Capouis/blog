@@ -20,7 +20,7 @@ comments: true
 sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk git-email git-daemon-run git-el git-arch
 ```
 
-
+<br/><br/>
 ### <font color="red"> *設置SSH鏈接以及git信息* </font>
 
 因爲在本地與服務器上都有代碼， 那麼在本地你要能夠遠程鏈接服務器， 這裏通過SSH進行鏈接
@@ -65,7 +65,7 @@ sudo apt-get install git git-core git-gui git-doc git-svn git-cvs gitweb gitk gi
     git config --global user.email "email"   
 ```
     
-
+<br/> <br/>
 ### <font color="red"> *github的使用* </font>
 
 * 創建項目
@@ -104,7 +104,7 @@ gh-pages了）
 ```
 git status -s
 ```
-這句話可以看到當前環境下文件發生的變化， 會提醒你Add read me文件， 如果你想添加read me文件， 那麼可以輸入：
+這句命令可以看到當前環境下文件發生的變化， 會提醒你Add read me文件， 如果你想添加read me文件， 那麼可以輸入：
 
 ```
 git add read me
@@ -116,7 +116,36 @@ git add read me
 git commit -m "log something"
 ```
 爲何要commit, 因爲其實git是分層次的， 當你在本地創建完項目之后， 只是添加在本地跟git沒有任何關係
-當你git add之后就將變動添加到git的緩衝區中， 但是還沒有正式提交到本地的git環境中， 只有當你commit之后， 變動的文件
-才能真正的在git環境中體現
+當你git add之后就將變動添加到git的暫存區中， 但是還沒有正式提交到本地的git環境中， 只有當你commit之后， 變動的文件才能真正的在git環境中體現
 
-執行完上面的
+執行完上面的git命令之后， 新建的項目文件就已經在本地的git環境中存在了， 先在要提交到服務器的github上去， 首先在github頁面上新建一個repository, 取名最好與本地的項目名稱保持一致， 隨後在git中執行:
+
+```
+git remote add origin url
+```
+url是所創建的repository的url, 這句命令相當於將github上的這個repository bind到origin上， 所以之后對origin的操作實際上是
+對github上的這個倉庫進行操作。 下面進行push（push 與 pull :)）的命令:
+
+```
+git push origin master
+```
+master表示的是本地的分支名稱， 當然也可以是gh-pages， push是提交的意思， 意味着將本地的code push 到github服務器上去
+這樣執行之后， 本地的項目就完全同步至github服務器上了
+<br/>
+
+* 之后的項目維護
+
+當然之后肯定要進行進一步的項目同步更新， 每次push之前最好先pull一下， 讓本地的項目保持更新狀態
+
+``` 
+git pull master origin
+```
+
+如果要刪除文件， 使用：
+
+```
+git rm file
+```
+
+
+
