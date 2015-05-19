@@ -4,7 +4,7 @@ title: Some Details in Different Programming Languages
 comments: true
 ---
 
-###经常容易混淆不同语言之间的语言特性或者内存分配等细节， 不得不记录下来做一些区分
+###经常容易混淆不同语言之间的语言特性或者内存分配等细节， 记录一些来做一些区分
 
 * <font color="red">C++/C# 对象初始化问题</font>
 
