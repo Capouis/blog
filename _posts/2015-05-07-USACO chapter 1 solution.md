@@ -400,9 +400,9 @@ char a[13],b[13];
 
 int main()
 {
-    freopen("namenum.in","r",stdin);
-    freopen("namenum.out","w",stdout);
-    freopen("dict.txt","r",stderr);
+    freopen("namenum.in", "r", stdin);
+    freopen("namenum.out", "w", stdout);
+    freopen("dict.txt", "r", stderr);
     bool flag = 1;
     cin >> a;
 
@@ -486,3 +486,123 @@ int main(){
 }
 ```
 <br/>
+
+* Dual Palindromes
+
+题意： 给定N, S， 求出N个大于S的整数， 满足： 每个整数在由2-10为基数表示的进制数中， 至少有两个是回文数
+
+分析： 枚举， 判断每个基数表示下是否为回文数即可
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: dualpal
+*/
+#include<cstdio>
+#include<cstring>
+#define submit
+using namespace std;
+const int N = 33;
+int a[N], ans[N];
+
+int main(){
+    #ifdef submit
+    freopen("dualpal.in", "r", stdin);
+    freopen("dualpal.out", "w", stdout);
+    #endif
+
+    int n, s;
+    scanf("%d%d", &n, &s);
+    int cnt = 0;
+    for(int i = s + 1; cnt < n; ++i){
+        int idx, j, k, p = 0;
+        for(idx = 2; idx <= 10 && p < 2; ++idx){
+            j = 0, k = i;
+            while(k){
+                a[j++] = k%idx;
+                k /= idx;
+            }
+            int l;
+            for(l = 0; l < j/2; ++l){
+                if(a[l] != a[j-1-l]){
+                    break;
+                }
+            }
+            if(l == (j/2)){
+                ++p;
+            }
+        }
+        if(p == 2){
+            ans[cnt++] = i;
+        }
+    }
+
+    for(int i = 0; i < n; ++i){
+        printf("%d\n", ans[i]);
+    }
+    return 0;
+}
+```
+<br/>
+
+* Mixing Milk
+
+题意： 需要N加仑牛奶， 有M个farmer， 每个人可以提供每加仑a元的牛奶b加仑， 求买N加仑的牛奶最少需要多少钱
+
+分析： 贪心一下， 按牛奶的价格排序， 先尽量买便宜的
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: milk
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#define submit
+using namespace std;
+const int N_ = 2e6 + 10;
+
+typedef struct node{
+    int cost, amount;
+
+    bool operator < (const node & r) const{
+        return cost < r.cost;
+    }
+}node;
+
+node a[N_];
+
+int main(){
+    #ifdef submit
+    freopen("milk.in", "r", stdin);
+    freopen("milk.out", "w", stdout);
+    #endif
+
+    int N, M;
+    scanf("%d%d", &N, &M);
+    for(int i = 0; i < M; ++i){
+        scanf("%d%d", &a[i].cost, &a[i].amount);
+    }
+
+    sort(a, a+M);
+
+    int ans = 0;
+    for(int i = 0; i < M; ++i){
+        if(a[i].amount < N){
+            ans += a[i].cost*a[i].amount;
+            N -= a[i].amount;
+        }
+        else{
+            ans += a[i].cost*N;
+            break;
+        }
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+```
+<br/>
+
