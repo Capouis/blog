@@ -140,6 +140,7 @@ class RenderHTML(Handler):
 * action 这里的action在基类中完成， 因为他的功能比较简单， 就是简单的执行加标记， 输出data的任务
 
 <font color="red"> Source Code </font>
+
 ```
 '''
 Rule Class contains two parts:
@@ -221,6 +222,7 @@ class ParagraphRule(Rule):
 * 对每一个block先根据filter规则对block进行格式化， 然后去判断一下是否满足某个rule， 如果满足就进行标记
 
 <font color="red"> Source Code </font>
+
 ```
 import sys, re
 from handlers import *
@@ -277,16 +279,3 @@ if __name__ == "__main__":
     file = r"C:\Users\tcOops\Desktop\a.txt"
     parser.parse(file)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
