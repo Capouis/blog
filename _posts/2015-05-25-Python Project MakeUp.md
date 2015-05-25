@@ -15,9 +15,9 @@ comments: true
 
 ```
 MakeUp
-├── handlers.py 
+├── util.py 
+├── handlers.py
 ├── rules.py
-├── util.py
 ├── makeup.py
 ```
 
