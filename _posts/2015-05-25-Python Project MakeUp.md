@@ -4,8 +4,7 @@ title: Python Project - MakeUp
 comments: true
 ---
 
-## 在 *python基础教程* 这本书里面介绍了很多小的项目， 为提高python的设计以及软件的设计能力提供了非常好的资源， 可以
-尝试做一下。
+## 在 *python基础教程* 这本书里面介绍了很多小的项目， 为提高python的设计以及软件的设计能力提供了非常好的资源，可以尝试做一下。
 
 ---
 
