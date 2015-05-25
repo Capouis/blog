@@ -21,6 +21,31 @@ MakeUp
 ├── makeup.py
 ```
 
+* util.py
+
+这个文件相对比较简单， 就是用来将输入文件解析成一个个块（block）。 注意整个文件是用空行来分割块的， 所以即使文件的结尾也要加上一个空行来作为一个分割符
+
+* <font color = "red"> Source Code </font>
+
+```
+def lines(file):
+    for line in file:
+        yield line
+
+def blocks(file):
+    fp = open(file)
+    block = []
+    for line in fp.readlines():
+        if line.strip():
+            block.append(line)
+        elif block:
+            yield ''.join(block).strip()
+            block = []
+    fp.close()
+```
+</br>
+
+
 * handlers.py 
 
 这个就是一个处理文件， 用来对已经识别到的标记做处理。 比如已经识别到某文件块是一个paragraph, 那么就要输出```<p>和</p>```这两个HTML元素。
