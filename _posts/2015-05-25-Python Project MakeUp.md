@@ -1,6 +1,6 @@
 ---
-default: layout
-title: Python Project MakeUp
+layout: default
+title: Python Project - MakeUp
 comments: true
 ---
 
