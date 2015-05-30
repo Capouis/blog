@@ -11,7 +11,7 @@ Django框架在后端集成了分页的模块， 所以完全可以将分页的�
 
 我要描述的一个分页的button列表， 用来进行ajax请求， 其中的样式有些硬编， 请勿模仿。。。
 
-*这段代码是用来进行 click button之后的Ajax请求， 可以看到处理了 <, <<<, >, >>>这样的特殊button， 再每一次Ajax请求之后，
+* 这段代码是用来进行 click button之后的Ajax请求， 可以看到处理了 <, <<<, >, >>>这样的特殊button， 再每一次Ajax请求之后，
 会重新渲染页面的button列表
 
 ```
@@ -71,7 +71,10 @@ function page(pageIndex){
 
 	var pagebtns = ""
 	
+	//Calc the left position where buttons begin
 	var start = pageIndex - 5
+	
+	//Consider the left buttons
 	if(start > 1){
 		pagebtns += "<input type = 'button' name='bigleft' onclick= 'searchWeblogs(this)'"  +
 		 "value='<<<'/>"
@@ -81,10 +84,14 @@ function page(pageIndex){
 	if(start < 1){
 		start = 1
 	}
+	
+	//Calc the right position where buttons end
 	var end = 10 + start - 1 
 	if(end > pageCnt){
 		end = pageCnt
 	}
+	
+	//Add the HTML of number buttons
 	style = "border:1px solid; background-color:#E1E2E3"
 	for(var i = start; i <= end; ++i){
 		if(i == pageIndex){
@@ -97,6 +104,8 @@ function page(pageIndex){
 			 "value='" + i.toString() + "'" + "style='" + style + "'/>"	
 		}	
 	}
+	
+	//Consider the right buttons
 	if(end < pageCnt){
 		pagebtns += "<input type = 'button' name='right' onclick= 'searchWeblogs(this)'"  +
 		 "value='>'/>"
