@@ -25,7 +25,7 @@ git-daemon-run git-el git-arch
 ### <font color="red"> *設置SSH鏈接以及git信息* </font>
 
 因爲在本地與服務器上都有代碼， 那麼在本地你要能夠遠程鏈接服務器， 這裏通過SSH進行鏈接
-（在windows下安裝了github的客戶端之后， 提供了設置賬戶的界面， 可以直接使用git-shell, 下面介紹的是ubuntu下的git安裝）
+（在windows下安裝了github的客戶端之后， 提供了設置賬戶的界面， 可以直接使用git-shell, 下面介紹的是ubuntu下的git的连接）
 
 * 先檢查一下SSH能不能鏈接：
 
@@ -42,7 +42,7 @@ Permission denied (publickey).
 则说明可以连接。
 
 
-* 检查~/.ssh目录下是否有id_rsa（私钥）和id_rsa.pub（公钥）文件，正常情況下是有的（.ssh是隱藏文件， 注意執行命令時候的目錄位置）， 如果沒有則要輸入：
+* 检查~/.ssh目录下是否有id_rsa（私钥）和id_rsa.pub（公钥）文件，正常情況下是有的（.ssh是隱藏文件，CTRL + H,  注意執行命令時候的目錄位置）， 如果沒有則要輸入：
 
 ```
     ssh-keygen -t rsa -C "your email"  
