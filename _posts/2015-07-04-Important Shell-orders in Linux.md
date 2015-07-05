@@ -77,6 +77,67 @@ man
 info grep， help grep 也可以查看命令的帮助信息  
 ```
 
+</br> </br>
+
+## 压缩解压命令
+
+```
+gzip： GNU zip
+gzip [文件] 压缩之后的文件格式: .gz
+```
+
+```
+gunzip: GNU unzip
+解压缩.gz的压缩文件
+```
+
+```
+tar: 压缩解压命令
+功能：打包目录-> tar [-zcvf] [压缩后文件名称] [目录]
+tar -zcvf dir1.tar.gz dir1 将dir1目录压缩成一个打包并且压缩的文件
+tar还能解压缩： tar -zxvf dir1.tar.gz 
+```
+
+
+```
+zip: 压缩文件或目录
+zip [-r] [压缩后文件名称] [文件或目录]
+-r 压缩目录
+比如： zip -r rep.zip rep 将rep目录压缩为rep.zip
+```
+
+
+```
+unzip: 解压缩zip压缩文件
+```
+</br> </br>
+
+
+## 网络通信命令
+
+```
+ping: 测试网络连通性
+ping [选项] [ip地址]
+ -c 指定发送次数
+ -s 指定数据包大小
+```
+
+```
+ifconfig: 查看或设置网卡信息
+```
+</br> </br>
+
+## 系统关机命令
+
+```
+shutdown: 关机
+比如： shutdown -h now
+```
+
+```
+reboot: 重启
+```
+
 
 
 
