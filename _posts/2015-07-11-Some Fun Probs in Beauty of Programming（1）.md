@@ -1,5 +1,5 @@
 ---
-layouts: default
+layout: default
 title: Some Fun Probs in Beauty of Programming（1）
 comments: true
 ---
