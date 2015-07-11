@@ -1,5 +1,5 @@
 ---
-layouts: default
+layout: default
 title: Summary for Some Mathematica Algorithms
 comments: true
 ---
