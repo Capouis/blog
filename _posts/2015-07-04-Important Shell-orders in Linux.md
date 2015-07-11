@@ -64,6 +64,8 @@ wc 命令
 统计文件的具体信息， 比如行数， 字符数， 字节数等， wc --help自己查看去吧
 ls -l | wc -l 统计ls -l 多少行～
 ```
+
+```
 chown
 change file ownership 改变文件的拥有者
 比如chown nobody file 改变文件的所有者为nobody
