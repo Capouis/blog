@@ -59,7 +59,10 @@ change the permission mode of a file, 改变文件或者目录的权限
   比如： chmod g+w file 表示增加文件所在组的写权限
 ```  
 
-
+```
+wc 命令
+统计文件的具体信息， 比如行数， 字符数， 字节数等， wc --help自己查看去吧
+ls -l | wc -l 统计ls -l 多少行～
 ```
 chown
 change file ownership 改变文件的拥有者
@@ -98,7 +101,7 @@ grep
 ```
 man
 查看命令的帮助信息 man grep
-info grep， help grep 也可以查看命令的帮助信息  
+info grep， grep --help 也可以查看命令的帮助信息  
 ```
 
 </br> </br>
@@ -118,7 +121,8 @@ gunzip: GNU unzip
 ```
 tar: 压缩解压命令
 功能：打包目录-> tar [-zcvf] [压缩后文件名称] [目录]
-tar -zcvf dir1.tar.gz dir1 将dir1目录压缩成一个打包并且压缩的文件
+tar -zcvf dir1.tar.gz dir1 将dir1目录压缩成一个打包的文件
+这里要说一下的是， 其实tar只是一个文件打包的命令， 并不能压缩文件， 压缩比100%
 tar还能解压缩： tar -zxvf dir1.tar.gz 
 ```
 
@@ -133,6 +137,13 @@ zip [-r] [压缩后文件名称] [文件或目录]
 
 ```
 unzip: 解压缩zip压缩文件
+```
+
+
+```
+还有现在全世界都在用的7z， 
+举个列子吧： 7z e -ob  MSP汇报.7z， e表示解压缩， -o是一个表示指定解压缩之后文件存放位置的选项， 这里将文件放在/b这个文件夹里面， 如果没有/b会新建一个/b
+命令具体格式比较繁杂， 可以用7z --help自己check具体信息吧～
 ```
 </br> </br>
 
