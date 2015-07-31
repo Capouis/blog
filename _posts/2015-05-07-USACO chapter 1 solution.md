@@ -606,3 +606,158 @@ int main(){
 ```
 <br/>
 
+* Prime Cryptarithm
+
+题意: 给出一个数字集合, 要求构造一个乘式, 3*2的格式, 乘法的中间数的位数也是有要求的, 类似:
+      2 2 2
+    x   2 2
+     ------
+      4 4 4
+    4 4 4
+  ---------
+    4 8 8 4
+要求乘式中的每个数字都在给出的数字集合中. 要求满足条件的等式的个数.
+
+分析: 阿拉伯数字个数肯定不会超过10, 而且乘数跟被乘数的位数很小, 所以可以直接枚举. 枚举之后, 判断乘法过程中每个数的数字以及位数是否满足要求.
+
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: crypt1
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int a[11];
+bool vis[11];
+
+int main(){
+    freopen("crypt1.in", "r", stdin);
+    freopen("crypt1.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    memset(vis, 0, sizeof(vis));
+    for(int i = 0; i < n; ++i){
+        scanf("%d", &a[i]);
+        vis[a[i]] = 1;
+    }
+
+    int ans = 0;
+    for(int i = 0; i < n; ++i){
+        if(a[i] == 0) continue;
+        for(int j = 0; j < n; ++j){
+            for(int k = 0; k < n; ++k){
+                for(int m = 0; m < n; ++m){
+                    if(a[m] == 0) continue;
+                    for(int l = 0; l < n; ++l){
+                        int x1 = 100*a[i] + 10*a[j] + a[k];
+                        int tmp1 = x1*a[m], tmp2 = x1*a[l];
+                        if(tmp1 < 100 || tmp1 >= 1000) continue;
+                        if(tmp2 < 100 || tmp2 >= 1000) continue;
+
+                        int res = tmp1*10+tmp2;
+                        if(res < 1000 || res >= 10000) continue;
+                        bool flag = true;
+                        while(tmp1){
+                            int  x2 = tmp1%10;
+                            if(!vis[x2]){
+                                flag = false;
+                                break;
+                            }
+                            tmp1 /= 10;
+                        }
+
+                        while(tmp2){
+                            int x2 = tmp2%10;
+                            if(!vis[x2]){
+                                flag = false;
+                                break;
+                            }
+                            tmp2 /= 10;
+                        }
+
+                        while(res){
+                            int x2 = res%10;
+                            if(!vis[x2]){
+                                flag = false;
+                                break;
+                            }
+                            res /= 10;
+                        }
+                        if(flag){
+                        //    printf("%d %d %d %d %d %d\n", x1, a[m], a[l], tmp1, tmp2, res);
+                            ++ans;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+```
+</br>
+
+* Combination Lock
+
+题意: 给出一个数字N, 代表一个数字环1-N, 且N跟1也是连接的(环). 给出两个三元组R: (a,b,c) S: (d,e,f), 要求构造三元组 T: (x,y,z) 满足dist(T, R)或者dist(S, T) <= 2, 这里的dist定义为数字距离, 比如(1,2,3)跟(4,5,6)的dist为: 4-1 + 5-2 + 6-3 = 9, 注意环的存在,比如N=10, 那么1跟10的距离只有1. 期望求出这样的三元组的个数.
+
+分析: 题目中的N范围比较小(1 <= N <= 100), 而且dist要求的距离很小,不超过2, 所以brute枚举完全没有问题. 但是枚举过程中可能会有重复, 现在就是要判重. 可以考虑暴力开个vis数组或者hash一下. 我选择了hash的做法.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: combo
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int n, a[3], b[3], c[3];
+const int N = 101*100*100 + 101*100 + 101;
+bool hash[N];
+int ans = 0;
+
+void dfs(int k, int *r){
+    if(k == 3){
+        int tmp = c[0]*100*100 + c[1]*100 + c[2];
+        if(hash[tmp] == 0){
+            ++ans;
+            hash[tmp] = 1;
+           // printf("%d %d %d\n", c[0], c[1], c[2]);
+        }
+        return;
+    }
+
+    for(int i = -2; i <= 2; ++i){
+        c[k] = (r[k] + i + n) % n + 1;
+        dfs(k+1, r);
+    }
+}
+
+int main(){
+    freopen("combo.in", "r", stdin);
+    freopen("combo.out", "w", stdout);
+    scanf("%d", &n);
+
+
+    for(int i = 0; i < 3; ++i){
+        scanf("%d", &a[i]);
+    }
+    for(int i = 0; i < 3; ++i){
+        scanf("%d", &b[i]);
+    }
+
+    dfs(0, a);
+    dfs(0, b);
+    printf("%d\n" ,ans);
+    return 0;
+}
+```
+</br>
