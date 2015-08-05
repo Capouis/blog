@@ -764,4 +764,89 @@ int main(){
     return 0;
 }
 ```
-</br>
+</br>种
+
+* Wormholes
+
+题意: 有一种类似虫洞的玩意(星际穿越:), 能够进行时空转移, 假设A,B是配对关系, 那么移动到A点时, 会转移到B点. 移动到B点时, 移动到A点. 现在有一个物体只能做X方向的正向移动, 也就是说X+, 而Y不变.  在这种情况下, 物体从某一点开始移动时可能会陷入一个死循环.  现在给出一些点的(X, Y)坐标, 给这些点两两配对, 问会出现多少种可能会出现死循环的情况.
+
+分析: 首先得正确分析题目中所说的运行状态. 物体的运动只有两种状态:
+
+* 沿着X轴正向移动
+* 通过虫洞在配对点之间进行瞬间转移
+
+但是通过这两种组合,  一个物体可能会有很随意的运行的状态, 所以不能单纯的分析几种特殊的运动状态, 而要全面分析所有可能的运动情况.
+考虑到点的数目很少(N<12), 可以通过深度优先搜索来将点进行配对, 接下来就是判断会不会出现死循环.
+如何判断呢? 抓住主要矛盾就是: 死循环出现的特征是: 假设有n个点, 如果是死循环的话, 他们之间是可以构成一个环的, 那么沿着这个环循环了一遍之后, 仍然还没有跳出这个环, 那肯定就是死循环了. OK, 仔细分析一下, 发现需要预处理下某个点右边最近的点(向X正向移动, 碰到最近的一个点之后, 转移到该点的配对点), 然后进行n次循环, 判断是否跳出这个环.
+
+```
+/*
+ ID: geek7774
+LANG: C++
+TASK: wormhole
+*/
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 13;
+int n, x[N], y[N];
+int p[N], next[N];
+
+bool judge(){
+    for(int i = 1; i <= n; ++i){
+        int pos = i;
+        for(int j = 0; j < n; ++j){
+            pos = next[p[pos]];
+        }
+        if(pos != 0){
+            return true;
+        }
+    }
+    return false;
+}
+
+int solve(){
+    int i, ans = 0;
+    for(i = 1; i <= n; ++i){
+        if(p[i] == 0) break;
+    }
+    if(i > n){
+        if(judge()) return 1;
+        else return 0;
+    }
+
+    for(int j = i+1; j <= n; ++j){
+        if(p[j] == 0){
+            p[i] = j;
+            p[j] = i;
+            ans += solve();
+            p[i] = p[j] = 0;
+        }
+    }
+    return ans;
+}
+
+int main(){
+    freopen("wormhole.in", "r", stdin);
+    freopen("wormhole.out", "w", stdout);
+    scanf("%d", &n);
+    for(int i = 1; i <= n; ++i){
+        scanf("%d%d", &x[i], &y[i]);
+    }
+
+    for(int i = 1; i <= n; ++i){
+        for(int j = 1; j <= n; ++j){
+            if(x[j] > x[i] && y[j] == y[i]){
+                if(next[i] == 0 || (x[j] - x[i]) < (x[next[i]] - x[i])){
+                    next[i] = j;
+                }
+            }
+        }
+    }
+
+    printf("%d\n", solve());
+    return 0;
+}
+```
