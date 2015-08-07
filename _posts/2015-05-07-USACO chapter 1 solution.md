@@ -850,4 +850,64 @@ int main(){
     return 0;
 }
 ```
+</br>
 
+* Ski Course Design
+
+题意: 给定一些hills的高度, 可以调整其中一些山的高度, 要求最高的跟最低的差距不超过17, 要求调整的总和最小
+
+分析: 题目数据范围比较小, 山的高度最大值为100, 完全可以暴力枚举.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: skidesign
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+    using namespace std;  
+    int N;  
+    int h[1001];  
+    #define MIN(a,b) ((a)>(b)?(b):(a))  
+
+    int main()  
+    {  
+        freopen("skidesign.in","r",stdin);  
+        freopen("skidesign.out","w",stdout);  
+
+        scanf("%d",&N);  
+        int Max=0;  
+        int tmp;  
+        for(int i=0;i<N;++i)  
+        {  
+            scanf("%d",&tmp);  
+            if(Max<tmp)Max=tmp;  
+            h[i]=tmp;  
+        }  
+        int ans=0x3f3f3f3f;  
+        for(int i=0;i<=Max;++i)  
+        {  
+            int sum=0;  
+            for(int j=0;j<N;++j)  
+            {  
+                if(h[j]<i&&i-h[j]>17)  
+                {  
+                    int c=(i-h[j]-17)*(i-h[j]-17);  
+                    sum+=c;  
+                }  
+                if(h[j]>i)  
+                {  
+                    int c= h[j]-i;  
+                    sum+=c*c;  
+                }  
+            }  
+            ans=MIN(sum,ans);  
+        }  
+        printf("%d\n",ans);   
+        return 0;  
+    }  
+```
+</br>
