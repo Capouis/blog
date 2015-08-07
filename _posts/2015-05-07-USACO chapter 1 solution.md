@@ -911,3 +911,428 @@ using namespace std;
     }  
 ```
 </br>
+
+
+* Arithmetic Progressions
+
+题意: 关于等差数列, 给定一个数的列表, 要求构造长度为N的等差数列, 要求这N个数都在给定的列表里面.
+
+分析: 枚举begin, d. 进行判断.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: ariprog
+*/
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 2e5 + 10;
+bool seq[N];
+#include<vector>
+typedef pair<int, int> PII;
+vector<PII> vec;
+
+bool cmp(PII a, PII b){
+    if(a.second != b.second){
+        return a.second < b.second;
+    }
+    return a.first < b.first;
+}
+
+int main(){
+    freopen("ariprog.in", "r", stdin);
+    freopen("ariprog.out", "w", stdout);
+    int n, m;
+    scanf("%d%d", &n, &m);
+    for(int i = 0; i <= m; ++i){
+        for(int j = 0; j <= m; ++j){
+            seq[i*i + j*j] = true;
+        }
+    }
+
+    bool flag = false;
+    for(int src = 0; src <= (m*m*2-n+1); ++src){
+        if(seq[src] == false) continue;
+        for(int d = 1; src + (n-1)*d <= (m*m*2); ++d){
+            bool f = true;
+            int tmp = src;
+            for(int k = 1; k <= n-1; ++k){
+                tmp += d;
+                if(tmp > (m*m*2) || seq[tmp] == false){
+                    f = false;
+                    break;
+                }
+            }
+            if(f){
+           //     printf("%d %d\n", src, d);
+                vec.push_back(make_pair(src, d));
+                if(!flag) flag = true;
+            }
+        }
+    }
+    sort(vec.begin(), vec.end(), cmp);
+    for(int i = 0; i < vec.size(); ++i){
+        printf("%d %d\n", vec[i].first, vec[i].second);
+    }
+    if(!flag) puts("NONE");
+    return 0;
+}
+```
+</br>
+
+
+* Mother's Milk
+
+题意: 经典的倒水问题.
+
+分析: BFS的入门题.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: milk3
+*/
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<queue>
+#include<vector>
+#include<set>
+using namespace std;
+const int N = 21;
+bool vis[N][N][N];
+int a, b, c;
+
+typedef struct water{
+    int x, y, z;
+    water(int a, int b, int c):x(a), y(b), z(c){}
+}w;
+
+queue<w > q;
+set<int > ans;
+
+int cnt = 0;
+
+void bfs(int x, int y, int z){
+    memset(vis, false, sizeof(vis));
+    w cur(x, y, z);
+    q.push(cur);
+    vis[x][y][z] = true;
+  //  if(x == 0){
+//        ans.push_back(z);
+ //   }
+
+    while(!q.empty()){
+        w p = q.front();
+        if(p.x == 0){
+            ans.insert(p.z);
+        }
+        q.pop();
+
+        //Divide into some cases
+        if(p.x != 0){
+            if(p.x + p.y >= b){
+
+                w pp(p.x-(b-p.y), b, p.z);
+                if(vis[p.x-(b-p.y)][b][p.z] == false){
+                    vis[p.x-(b-p.y)][b][p.z] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(0, p.y+p.x, p.z);
+                 if(vis[0][p.x+p.y][p.z] == false){
+                    vis[0][p.x+p.y][p.z] = true;
+                    q.push(pp);
+                 }
+            }
+
+            if(p.x + p.z >= c){
+                w pp(p.x-(c-p.z), p.y, c);
+                if(vis[p.x-(c-p.z)][p.y][c] == false){
+                    vis[p.x-(c-p.z)][p.y][c] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(0, p.y, p.z+p.x);
+                 if(vis[0][p.y][p.z+p.x] == false){
+                    vis[0][p.y][p.z+p.x] = true;
+                    q.push(pp);
+                 }
+            }
+        }
+
+
+        //Divide into some cases
+        if(p.y != 0){
+            if(p.x + p.y >= a){
+                w pp(a, (p.x+p.y)-a, p.z);
+                if(vis[a][p.x+p.y-a][p.z] == false){
+                    vis[a][p.x-(a-p.y)][p.z] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(p.x+p.y, 0, p.z);
+                 if(vis[p.x+p.y][0][p.z] == false){
+                    vis[p.x+p.y][0][p.z] = true;
+                    q.push(pp);
+                 }
+            }
+
+
+            if(p.z + p.y >= c){
+                w pp(p.x, p.y+p.z-c, c);
+                if(vis[p.x][p.y+p.z-c][c] == false){
+                    vis[p.x][p.y+p.z-c][c] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(p.x, 0, p.z+p.y);
+                 if(vis[p.x][0][p.z+p.y] == false){
+                    vis[p.x][0][p.z+p.y] = true;
+                    q.push(pp);
+                 }
+            }
+        }
+
+        //Divide into some cases
+        if(p.z != 0){
+            if(p.x + p.z >= a){
+                w pp(a, p.y, p.z+p.x-a);
+                if(vis[a][p.y][p.z+p.x-a] == false){
+                    vis[a][p.y][p.x+p.z-a] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(p.x+p.z, p.y, 0);
+                 if(vis[p.x+p.z][p.y][0] == false){
+                    vis[p.x+p.z][p.y][0] = true;
+                    q.push(pp);
+                 }
+            }
+
+
+            if(p.y + p.z >= b){
+                w pp(p.x, b, p.z+p.y-b);
+                if(vis[p.x][b][p.z+p.y-b] == false){
+                    vis[p.x][b][p.z+p.y-b] = true;
+                    q.push(pp);
+                }
+            }
+            else{
+                 w pp(p.x, p.y+p.z, 0);
+                 if(vis[p.x][p.y+p.z][0] == false){
+                    vis[p.x][p.y+p.z][0] = true;
+                    q.push(pp);
+                 }
+            }
+        }
+    }
+}
+
+int main(){
+    freopen("milk3.in", "r", stdin);
+    freopen("milk3.out", "w", stdout);
+    scanf("%d%d%d", &a, &b, &c);
+    bfs(0, 0, c);
+    set<int >::iterator it;
+    bool space = false;
+    for(it = ans.begin(); it != ans.end(); ++it){
+        if(space){
+            printf(" ");
+        }
+        else space = true;
+        printf("%d", *it);
+    }
+    puts("");
+    return 0;
+}
+```
+</br>
+
+
+* Number Triangles
+
+题意: 数字三角形
+
+分析: 经典DP问题
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: numtri
+*/
+
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+using namespace std;
+const int N = 1010;
+int dp[2][N];
+vector<int > a[N];
+
+int maxab(int a, int b){
+    return ((a > b) ? (a) : (b));
+}
+
+int main(){
+    freopen("numtri.in", "r", stdin);
+    freopen("numtri.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    for(int i = 1; i <= n; ++i){
+        for(int j = 0; j < i; ++j){
+            int k;
+            scanf("%d", &k);
+            a[i].push_back(k);
+        }
+    }
+
+    for(int i = 0; i < n; ++i){
+        dp[n&1][i] = a[n][i];
+    }
+    for(int i = n-1; i >= 1; --i){
+        for(int j = 0; j < i; ++j)
+            dp[i&1][j] = maxab(dp[(i+1)&1][j], dp[(i+1)&1][j+1]) + a[i][j];
+    }
+    printf("%d\n", dp[1][0]);
+    return 0;
+}
+```
+</br>
+
+
+* Prime Palindromes
+
+题意: 给定a, b, 求出[a, b]所有的既是prime又是palindrome的数
+
+分析: 这题的数据范围还是挺大, 如果暴力枚举的话, 会出现超时的情况. 所以要在构造回文数的方法上做点优化.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: pprime
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+using namespace std;
+vector<int > ans;
+
+int foo(int d, int type){
+    char s[30];
+    sprintf(s, "%d", d);
+    int len = strlen(s);
+    if(type == 1){
+        for(int i = 0; i < len; ++i){
+            s[i+len] = s[len-1-i];
+        }
+        s[(len<<1)] = '\0';
+        return atoi(s);
+    }
+    else{
+        for(int i = 0; i < len; ++i){
+            s[i+len-1] = s[len-1-i];
+        }
+        s[len*2-1] = '\0';
+        return atoi(s);
+    }
+}
+
+
+bool isPrime(int k){
+    if(k == 1) return false;
+    for(int i = 2; i*i <= k; ++i){
+        if(k % i == 0) return false;
+    }
+    return true;
+}
+
+int main(){
+    freopen("pprime.in", "r", stdin);
+    freopen("pprime.out", "w", stdout);
+    int a, b;
+    scanf("%d%d", &a, &b);
+    int len = 0, tmp = b;
+    for(int i = 1; i <= 99999; ++i){
+        for(int j = 1; j <= 2; ++j){
+                int v = foo(i, j);
+                if(v > b && j == 2) break;
+                if(v >= a && v <= b && isPrime(v)){
+                    ans.push_back(v);
+                }
+        }
+    }
+    sort(ans.begin(), ans.end());
+    for(int i = 0; i < ans.size(); ++i){
+        printf("%d\n", ans[i]);
+    }
+    return 0;
+}
+```
+</br>
+
+* Superprime Rib
+
+题意: 构造一个炒鸡素数
+
+分析: 简单dfs下, 简单素数判断
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: sprime
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int factor[6] = {1, 2, 3, 5, 7, 9};
+
+bool isPrime(int s){
+    if(s < 2) return false;
+    for(int k = 2; k*k <= s; ++k){
+        if(s%k == 0) return false;
+    }
+    return true;
+}
+
+void judge(int s, int k, int n){
+    if(k == n){
+        printf("%d\n", s);
+        return ;
+    }
+
+    for(int i = 0; i < 6; ++i){
+        int ssd = s*10 + factor[i];
+        if(isPrime(ssd)){
+            judge(ssd, k+1, n);
+        }
+    }
+}
+
+int main(){
+    freopen("sprime.in", "r", stdin);
+    freopen("sprime.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    judge(0, 0, n);
+    return 0;
+}
+```
+</br>
