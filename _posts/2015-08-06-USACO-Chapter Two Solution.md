@@ -117,3 +117,45 @@ int main(){
 }
 ```
 </br>
+
+* Ordered Fractions
+
+题意: 要求构造介于0/1与1/1之间的所有分数, 满足分数的分母不超过N
+
+分析: 这道题目先构造出所有的分数,然后排序输出.
+但是这题很巧妙, 有一个super解法, 也就是递归构造, 至于为什么会这样, 应该是数学的一种美吧.
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: frac1
+*/
+
+#include<cstdio>
+#include<cstring>
+#include<cmath>
+using namespace std;
+int n;
+
+void solve(int x1, int y1, int x2, int y2){
+    int x = x1 + x2, y = y1 + y2;
+    if(y > n){
+        return ;
+    }
+    solve(x1, y1, x, y);
+    printf("%d/%d\n", x, y);
+    solve(x, y, x2, y2);
+}
+
+int main(){
+    freopen("frac1.in", "r", stdin);
+    freopen("frac1.out", "w", stdout);
+    scanf("%d", &n);
+    printf("0/1\n");
+    solve(0, 1, 1, 1);
+    printf("1/1\n");
+    return 0;
+}
+```
+</br> 
