@@ -9,7 +9,7 @@ linux操作系统也有很多不熟悉的地方.
 
 背景: 最近做了一个Django的小项目DMS, 然后又购买了一个vps, 所以要在ubuntu下将这个小项目ssh到vps上.
 在vps上已经装好了apache来跑一个php的项目. 
-
+------
 过程: 
 刚开始我是考虑直接用apache2来做web-server, 因为vps已经有apache的部署. 但是考虑到apache2 + mod_python部署可能会有很多问题,
 而且apache2的版本有些不稳定, 所以后来开始尝试使用nginx.  在配置nginx的过程中, 我在/etc/nginx/sites-enable/目录下新建了一个dms.conf文件,
@@ -17,6 +17,7 @@ linux操作系统也有很多不熟悉的地方.
 参考了[apache2 + wsgi配置](http://blog.163.com/soyking@126/blog/static/162125251201392311561784/), apache2在本地已经测试OK了,
 但是当scp到vps上的时候, 始终无法正确访问8088这个端口, 最后还是决定用nginx + wsgi来部署(也考虑到后续的问题).
 
+------
 下面就是nginx + wsgi的部署了.
 首先先了解整个web请求的流程, nginx主进程lanuch了多个虚拟主机, 监听多个端口, 然后在VirtualHost的配置文件中, 要经过wsgi这一层,
 然后由他交给django进行处理, 所以wsgi是连接nginx跟django的桥梁.
@@ -46,7 +47,7 @@ from django.core.handlers.wsgi import WSGIHandler
 application = WSGIHandler()
 ```
 
-然后在同一个目录下新建dms_uwsgi.ini文件
+(3) 然后在同一个目录下新建dms_uwsgi.ini文件
 
 ```
 # mysite_uwsgi.ini file
@@ -84,69 +85,46 @@ uwsgi --http :8080 --ini dms_uwsgi.ini
 ```
 测试上面的流程有没有问题
 
-下面就是要在nginx的配置文件中指明访问的端口, django项目的目录, 以及wsgi的文件位置等信息
+
+(4) 下面就是要在nginx的配置文件中指明访问的端口, django项目的目录, 以及wsgi的文件位置等信息
 
 ```
 upstream django {
-
      server unix:///home/tcoops/DMS/mysite.sock;
-
     #server 127.0.0.1:8001; # for a web port socket (we'll use this first)
-
 }
 
-
-
 # configuration of the server
-
 server {
-
     # the port your site will be served on
-
     listen      8088;  
 
     # the domain name it will serve for
+    # server_name .example.com; # substitute your machine's IP address or FQDN
+rset     utf-8;
 
- #   server_name .example.com; # substitute your machine's IP address or FQDN
-
-    charset     utf-8;
-
-
-
+    cha
     # max upload size
-
     client_max_body_size 75M;   # adjust to taste
 
 
-
     # Django media
-
     location /media  {
-
         alias /home/tcoops/DMS/DMS/media;  # your Django project's media files - amend as required 
-
     }
-
 
 
     location /static {
-
         alias /home/tcoops/DMS/DMS/mystatic; # your Django project's static files - amend as required
-
     }
-
 
 
     # Finally, send all non-media requests to the Django server.
 
     location / {
-
         uwsgi_pass  django; 
-
         include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed   
-
     }
-
 }
 ```
 
@@ -157,4 +135,6 @@ uwsgi --ini dms_uwsgi.ini
 ```
 来启动dms_uwsgi.ini这个文件, 同时/etc/init.d/nginx restart 来重启nginx服务.
 
-
+------
+中间遇到了很多问题
+(1) 配置文件中存在中文编码, 导致错误
