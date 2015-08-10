@@ -9,7 +9,9 @@ linux操作系统也有很多不熟悉的地方.
 
 背景: 最近做了一个Django的小项目DMS, 然后又购买了一个vps, 所以要在ubuntu下将这个小项目ssh到vps上.
 在vps上已经装好了apache来跑一个php的项目. 
+
 ------
+
 过程: 
 刚开始我是考虑直接用apache2来做web-server, 因为vps已经有apache的部署. 但是考虑到apache2 + mod_python部署可能会有很多问题,
 而且apache2的版本有些不稳定, 所以后来开始尝试使用nginx.  在配置nginx的过程中, 我在/etc/nginx/sites-enable/目录下新建了一个dms.conf文件,
