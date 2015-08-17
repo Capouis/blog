@@ -95,10 +95,10 @@ git init
 * 初始化之后要爲項目創建一個分支名稱， 不創建默認應該是master分支， 你也可以使用
 
 ```
-git checkout --orphan gh-pages
+git checkout --orphan gh-pages 
 ```
-來創建一個名叫gh-pages的分支（這裏只是舉個例子， 當你push到github上去之后， 也是這個分支名稱， 也就是說你創建的項目的源分支就是
-gh-pages了）
+來創建一個名叫gh-pages的分支（這裏只是舉個例子， 當你push到github上去之后， 也是這個分支名稱， 也就是說你創建的項目的源分支就是gh-pages了）， 当然你也可以使用git checkout xxx去执行切换到分支
+xxx， 注意， 当你git init之后， 如果不提交任何操作是不会创建分支的， 否则会创建一个master的默认分支， 除非你指定了主分支， 比如当前的主分支就是gh-pages.
 
 * 下面進行首次提交
 
@@ -125,13 +125,13 @@ git commit -m "log something"
 執行完上面的git命令之后， 新建的項目文件就已經在本地的git環境中存在了， 先在要提交到服務器的github上去， 首先在github頁面上新建一個repository, 取名最好與本地的項目名稱保持一致， 隨後在git中執行:
 
 ```
-git remote add origin url
+git remote add origin url （添加origin源）
 ```
 url是所創建的repository的url, 這句命令相當於將github上的這個repository bind到origin上， 所以之后對origin的操作實際上是
 對github上的這個倉庫進行操作。 下面進行push（push 與 pull :)）的命令:
 
 ```
-git push origin master
+git push origin master (意思是将本地的master这个仓库的代码同步到origin这个源上面去)
 ```
 master表示的是本地的分支名稱， 當然也可以是gh-pages， push是提交的意思， 意味着將本地的code push 到github服務器上去
 這樣執行之后， 本地的項目就完全同步至github服務器上了
@@ -142,7 +142,7 @@ master表示的是本地的分支名稱， 當然也可以是gh-pages， push是
 當然之后肯定要進行進一步的項目同步更新， 每次push之前最好先pull一下， 讓本地的項目保持更新狀態
 
 ``` 
-git pull master origin
+git pull origin master 
 ```
 
 如果要刪除文件， 使用：
