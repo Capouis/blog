@@ -606,6 +606,53 @@ int main(){
 ```
 <br/>
 
+
+* Barn Repair 
+
+题意： 有一些牛在一条直线上， 现在有n个stalls可以用来遮蔽这群牛， 问如果想要能遮住他们， stalls总长度至少得多长
+
+分析： 贪心， 取反来求解。 求出相邻两头牛之间的间隔之后进行排序。 选出前n-1大的， 这n-1的间隔可以将n头牛分成n部分。
+用最长度减去这些间隔的长度之后， 就能得到stalls的总长度。
+
+```
+/*
+ID: geek7774
+LANG: C++
+TASK: barn1
+*/
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int M, S, C;
+const int N = 210;
+int a[N], b[N];
+
+int main(){
+    freopen("barn1.in", "r", stdin);
+    freopen("barn1.out", "w", stdout);
+	scanf("%d%d%d", &M, &S, &C);
+	for(int i = 0; i < C; ++i){
+        scanf("%d", &a[i]);
+    }
+    sort(a, a+C);
+    for(int i = 0; i < C; ++i){
+        b[i] = a[i+1] - a[i] - 1;
+    }
+
+    int ans = a[C-1] - a[0] + 1;
+    sort(b, b+C-1);
+    int i, j;
+    for(i = C-2, j = 1; i >= 0 && j < M; ++j, --i){
+        ans -= b[i];
+    }
+    printf("%d\n", ans);
+	return 0;
+}
+```
+</br>
+
+
 * Prime Cryptarithm
 
 题意: 给出一个数字集合, 要求构造一个乘式, 3*2的格式, 乘法的中间数的位数也是有要求的, 类似:
