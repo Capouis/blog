@@ -140,3 +140,7 @@ uwsgi --ini dms_uwsgi.ini
 ------
 中间遇到了很多问题
 (1) 配置文件中存在中文编码, 导致错误
+(2) dms_uwsgi.ini文件里面设定的sock文件的访问权限没有chmod为777, 导致request denied.
+(3) 对于django project的文件相对位置搞错, 将wsgi文件的位置搞错,  导致无法search到DMS.setting这个文件, 说到底,
+还是对django系统存在认识误区
+(4) 配置端口的问题, 不知道具体配置哪个文件. 比如, nginx的默认端口号为80, 那么当系统中存在一个已经占用了80端口的apache之后, 会报错, 那么需要修改的是site_enabled这个里面的default文件, 设置一下默认端口号
