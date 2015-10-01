@@ -227,4 +227,86 @@ int main(){
 ```
 </br>
 
+* Healthy Holsteins
 
+题意： 每头cow都需要一定的营养， 有v种营养， 每种营养必须到达vi的量。 现有n种能量源， 每种能量源可以提供v种营养， 现在需要求出最少需要几种能量源， 达到营养目标， 成为一头healthy cow.
+
+分析： 考虑到数据范围， 可以用dfs搜索来搜索整个解空间。 当然在搜索到过程种要尽量剪枝
+
+```
+#include<cstdio>
+#include<cstring>
+#include<vector>
+using namespace std;
+const int N = 16;
+typedef struct{
+    int v[N<<1];
+}contain;
+contain types[N];
+
+int need[N<<1];
+int ans = 0, v, n;
+//vector<int > root, *p;
+int root[N];
+
+void solve(int *b, int *c, int k, int num){
+    if(num > ans) return ;
+
+    bool flag = false;
+    for(int i = 0; i < v; ++i){
+        if(b[i] < need[i]){
+            flag = true;
+            break;
+        }
+    }
+    if(!flag){
+        if(num < ans){
+            ans = num;
+            for(int i = 0; i < num; ++i){
+                root[i] = c[i];
+            }
+        }
+        return ;
+    }
+
+    if(k == n) return;
+
+    for(int i = 0; i < v; ++i){
+        b[i] += types[k].v[i];
+    }
+    c[num] = k + 1;
+    solve(b, c, k+1, num+1);
+
+    for(int i = 0; i < v; ++i){
+        b[i] -= types[k].v[i];
+    }
+    solve(b, c, k+1, num);
+}
+
+int main(){
+    freopen("holstein.in", "r", stdin);
+    freopen("holstein.out", "w", stdout);
+    scanf("%d", &v);
+    for(int i = 0; i < v; ++i){
+        scanf("%d", &need[i]);
+    }
+    scanf("%d", &n);
+    for(int i = 0; i < n; ++i){
+        for(int j = 0; j < v; ++j){
+            scanf("%d", &types[i].v[j]);
+        }
+    }
+
+    int b[N<<1], c[N<<1];
+    memset(b, 0, sizeof(b));
+    ans = 1e9;
+    solve(b, c, 0, 0);
+    printf("%d", ans);
+    for(int i = 0; i < ans; ++i){
+        printf(" %d", root[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+</br>
