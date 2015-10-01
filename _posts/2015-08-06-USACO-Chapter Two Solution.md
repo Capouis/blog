@@ -310,3 +310,71 @@ int main(){
 }
 ```
 </br>
+
+
+* Hamming codes
+
+题意：给出N, B, D, 给出hamming code的定义： binary distance，也就是a,b分别写成二进制之后，每一位上如果数字不同也就是一个0，一个1算一个distance。 需要求出N个数， 每个数表示成B位二进制数之后， 两两之间的hamming code >= D
+
+分析： 这里有一个很trick的想法： 0肯定可以作为N个数的第一个， 因为假设最小的数为k， 而不是0， 那么用k去xor这N个数，得到的新的序列依然是满足条件的（两个数xor同一个数， hamming code并不会改变）， 而k xor k = 0, 所以0肯定是第一个数。 确定第一个数， 就可以进行枚举判断， 直到找到N个数为止
+
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+int N, B, D;
+vector<int > ans;
+
+bool check(int a, int b){
+    int bit = a ^ b;
+    int cnt = 0;
+    for(int i = 0; i < B; ++i){
+        if((1<<i) & bit){
+            ++cnt;
+            if(cnt >= D) return true;
+        }
+    }
+    return false;
+}
+
+bool solve(int cnt, int k){
+    for(int i = 0; i < cnt; ++i){
+        if(!check(k, ans[i])) return false;
+    }
+    return true;
+}
+
+int main(){
+    freopen("hamming.in", "r", stdin);
+    freopen("hamming.out", "w", stdout);
+    scanf("%d%d%d", &N, &B, &D);
+    ans.clear();
+    ans.push_back(0);
+
+    int cnt = 1, cur = 1;
+    while(cnt < N){
+        if(solve(cnt, cur)){
+            ans.push_back(cur);
+            ++cnt;
+        }
+        ++cur;
+    }
+
+    for(int i = 0; i < ans.size(); ++i){
+        if(i > 0 && i%10 == 0) printf("\n");
+        else{
+            if(i != 0){
+                printf(" ");
+            }
+        }
+        printf("%d", ans[i]);
+    }
+    printf("\n");
+    return 0;
+}
+```
+</br>
