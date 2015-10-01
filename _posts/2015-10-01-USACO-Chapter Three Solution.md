@@ -4,6 +4,7 @@ title: USACO-Chapter Three Solution
 comments: true
 ---
 
+
 * A Game
 
 题意：两个人玩一个取牌的游戏， 一堆牌排成一列，每张牌都有一个值， 现在两个人每次可以从两头中的任意一头抽一张牌，
@@ -11,6 +12,7 @@ comments: true
 
 分析： 经典dp问题。 对于当前人来说， 决策的依据在于：取完某一头的牌（牌面指为a）， 剩下的局面让对手取走最优的情况之后， 可以可以取得剩下局面里面的牌面值为b， 其中a+b要最大
 采用了记忆化的写法， 预处理一下sum
+
 ```
 #include<cstdio>
 #include<cstring>
