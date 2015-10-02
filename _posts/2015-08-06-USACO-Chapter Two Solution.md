@@ -452,3 +452,43 @@ int main(){
 ```
 </br>
 
+* Subset Sums
+
+题意: 给出1~N这N个数， 要求把他们分成两份， 两份的sum要相等。
+
+分析： 经典dp问题， 属于背包的范畴。 问题转化为： 从1-N中选k个数， 要求这k个数的和为s. s为1~N和值的一半。
+算出的结果发现重复算了两次， 所以要除以2.
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 40;
+int dp[N];
+
+int main(){
+    freopen("subset.in", "r", stdin);
+    freopen("subset.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    int s = (n)*(n+1)/2;
+    if(s & 1){
+        printf("\0");
+    }
+    else{
+        s >>= 1;
+        memset(dp, 0, sizeof(dp));
+        dp[0] = 1;
+        for(int i = 1; i <= n; ++i){
+            for(int j = s; j >= i; --j){
+                dp[j] = dp[j] + dp[j-i];
+            }
+        }
+        printf("%d\n", dp[s]>>1);
+    }
+    return 0;
+}
+```
+</br>
+
