@@ -378,3 +378,77 @@ int main(){
 }
 ```
 </br>
+
+
+* Preface Numbering
+
+题意: 这道题目是关于罗马编码的问题， 给出一些罗马编码的规则， 需要求出1～N的罗马数字表示里面各种罗马字母出现的次数。
+
+分析: 刚开始觉得这道题目相当繁琐， 后来慢慢分析之后发现可以递归解决。 十位百位千位的情况与个位等同。 只要将个位的数字表达描述好， 就可以用来模拟高位的情况。
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+
+char *roman[] = {
+"", "I", "II", "III", "IV", "V",
+"VI", "VII", "VIII", "IX", "X"
+};
+
+char* solve(int n, char *val){
+    static char ans[10];
+    char *p = ans;
+    for(char *i = roman[n]; *i; ++p, ++i){
+        if(*i == 'I'){
+            *p = val[0];
+        }
+        else if(*i == 'V'){
+            *p = val[1];
+        }
+        else if(*i == 'X'){
+            *p = val[2];
+        }
+    }
+    *p = '\0';
+    return ans;
+}
+
+char* evlos(int n){
+    char buffer[31];
+    strcpy(buffer, "");
+    strcat(buffer, solve(n/1000, "M"));
+    strcat(buffer, solve(n/100%10, "CDM"));
+    strcat(buffer, solve(n/10%10, "XLC"));
+    strcat(buffer, solve(n%10, "IVX"));
+//    printf("%s\n", buffer);
+    return buffer;
+}
+
+int main(){
+    freopen("preface.in", "r", stdin);
+    freopen("preface.out", "w", stdout);
+    int cnt[128];
+    for(char *s = "IVXLCDM"; *s; ++s){
+        cnt[*s] = 0;
+    }
+
+    int n;
+    scanf("%d", &n);
+    for(int i = 1; i <= n; ++i){
+        for(char *r = evlos(i); *r; ++r){
+            ++cnt[*r];
+        }
+    }
+
+    for(char *s = "IVXLCDM"; *s; ++s){
+        if(cnt[*s]){
+            printf("%c %d\n", *s, cnt[*s]);
+        }
+    }
+    return 0;
+}
+```
+</br>
+
