@@ -492,3 +492,65 @@ int main(){
 ```
 </br>
 
+
+* Runaround Numbers
+
+题意： 求满足s条件的数， s条件：一个数字从第一个数字开始， 按本位的数字往下循环访问， 要求能回到首位数字， 而且回到首位数字的时候， 所有的数字刚好被访问一次。  比如147， 刚开始1表示访问1之后的第一个数字4， 之后访问4之后的第4个数字， 到达7， 之后访问7之后的第7个数字，到达1， 至此回到第一个数字， 并且所有第数字被访问了一次， 所以147是满足条件第数。
+
+分析：当第二次访问某个数字当时候， 说明肯定进入了某个循环节， 如果此时并非所有数字都访问过， 那么之后再也不可能被访问到。 同时有可能在数字的后面进入循环节， 再也回不到首位数字。 所以可以通过访问的数字次数进行控制。
+
+```
+#include<cstdio>
+#include<cstring>
+#include<cstdlib>
+using namespace std;
+char buf[10086];
+bool vis[10];
+bool digit[128];
+
+bool solve(int n){
+    sprintf(buf, "%d", n);
+    memset(digit, false, sizeof(digit));
+    for(char *p = buf; *p; ++p){
+        if(*p == '0') return false;
+        if(digit[*p] == true){
+            return false;
+        }
+        digit[*p] = true;
+    }
+    memset(vis, false, sizeof(vis));
+    int cnt = 1, len = strlen(buf), p = 0;
+    vis[0] = true;
+    if(len == 1) return true;
+
+    while(true){
+        p = (p + buf[p] - '0')%len;
+        if(vis[p] == true){
+            return false;
+        }
+        vis[p] = true, ++cnt;
+        if(cnt == len){
+            p = (p + buf[p] - '0')%len;
+            if(p == 0){
+                return true;
+            }
+            return false;
+        }
+    }
+}
+
+int main(){
+    freopen("runround.in", "r", stdin);
+    freopen("runround.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    while(++n){
+        if(solve(n)){
+            printf("%d\n", n);
+            break;
+        }
+    }
+    return 0;
+}
+```
+</br>
