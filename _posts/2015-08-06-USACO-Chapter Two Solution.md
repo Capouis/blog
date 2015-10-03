@@ -556,4 +556,113 @@ int main(){
 </br>
 
 
-* 
+* Party Lamps
+
+题意：给出四种操作还有一些lamps, 现在需要执行c次操作， 要求所有的lamp的状态满足给定的条件。
+
+分析： 这种类型的题目， 都要注意：几种操作先后顺序是无关的 & 一种操作执行多次是没有意义的， 等效于执行一次或者没有执行。 那么这样就可以枚举操作了， 因为要满足操作c次， 如果枚举的操作为k次， 只要c-k是偶数就ok了
+
+```
+#include<cstdio>
+#include<cstring>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+const int N = 101;
+bool isLight[N];
+int on[N], off[N];
+int n, c, on_cnt, off_cnt;
+vector<string > sb;
+bool cmp(string a, string b){
+    return a < b;
+}
+
+void solve(){
+    bool suc = false;
+    sb.clear();
+    //int types = (c <= 16 ? c : 16);
+    for(int i = 0; i < 16; ++i){
+        int s = i, bit1 = 0;
+        while(s){
+            s -= s & (-s);
+            ++bit1;
+        }
+        if(bit1 > c) continue;
+        if((c-bit1) & 1) continue;
+        for(int i = 0; i < n; ++i){
+            isLight[i] = 1;
+        }
+        if(i & (1<<0)){
+            for(int j = 0; j < n; ++j){
+                isLight[j] ^= 1;
+            }
+        }
+        if(i & (1<<1)){
+            for(int j = 0; j < n; j += 2){
+                isLight[j] ^= 1;
+            }
+        }
+        if(i & (1<<2)){
+            for(int j = 1; j < n; j += 2){
+                isLight[j] ^= 1;
+            }
+        }
+        if(i & (1<<3)){
+            for(int j = 0; j < n; j += 3){
+                isLight[j] ^= 1;
+            }
+        }
+        bool flag = true;
+        for(int j = 0; j < on_cnt; ++j){
+            if(!isLight[on[j]]){
+                flag = false;
+                break;
+            }
+        }
+        for(int j = 0; j < off_cnt; ++j){
+            if(isLight[off[j]]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            suc = true;
+            string tmp = "";
+            for(int j = 0; j < n; ++j){
+                tmp += isLight[j] + '0';
+            }
+            //tmp += '\0';
+            sb.push_back(tmp);
+        }
+    }
+    if(!suc){
+        printf("IMPOSSIBLE\n");
+        return ;
+    }
+
+    sort(sb.begin(), sb.end(), cmp);
+    for(int i = 0; i < sb.size(); ++i){
+        printf("%s\n", sb[i].c_str());
+    }
+}
+
+int main(){
+    freopen("lamps.in", "r", stdin);
+    freopen("lamps.out", "w", stdout);
+    scanf("%d%d", &n, &c);
+    on_cnt = 0, off_cnt = 0;
+    int val;
+    while(~scanf("%d", &val)){
+        if(val == -1) break;
+        on[on_cnt++] = val - 1;
+    }
+    while(~scanf("%d", &val)){
+        if(val == -1) break;
+        off[off_cnt++] = val - 1;
+    }
+    solve();
+    return 0;
+}
+```
+</br>
