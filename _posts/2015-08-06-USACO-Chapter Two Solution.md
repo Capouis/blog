@@ -808,7 +808,7 @@ bool cmp(string a, string b){
     return a < b;
 }
 
-void solve(int sum, int k, int cnt, int op){//当前和为sum， 当前计算到1~N中的k,  //cnt是记录结果的游标，当前保存的符号为op,  -1表示＋，-2表示－
+void solve(int sum, int k, int cnt, int op){//当前和为sum， 当前计算到1~N中的k,  cnt是记录结果的游标，当前保存的符号为op,  -1表示＋，-2表示－
     int s = 0, i;
     bool flag = false;
     for(i = k; i <= n; ++i){
