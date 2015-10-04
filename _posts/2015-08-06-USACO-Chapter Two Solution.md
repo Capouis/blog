@@ -726,3 +726,63 @@ int main(){
 }
 ```
 </br>
+
+
+* Cow Pedigrees
+
+题意： 有一颗二叉树， 该树节点的度只有0或者2两种， 要求用n个节点可以组成多少种树高为k的二叉树
+
+分析： 经典dp。 首先明确一点： 该树的节点个数只能为奇数个（用度很好证明） 对于节点个数为n, 且高度为k的二叉树来说， 可以分解成三种情况：
+
+* 左子树的高度为k-1, 右子树的高度也为k-1
+* 左子树的高度为k-1, 右子树的高度不超过k-2
+* 右子树的高度为k-1, 左子树的高度不超过k-2
+
+这样就可以找到dp中的子问题， 开两个数组：dp[i][j] 表示高度为i， 节点数为j的二叉树的个数， tree[i][j]表示高度不超过i节点数为j的二叉树个数，  节点数为注意dp的初始化， 以及在dp过程中可以利用树的对称性等。
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 110;
+int dp[N][N<<1], tree[N][N<<1];
+int n, k;
+const int MOD = 9901;
+
+void solve(){
+    memset(dp, 0, sizeof(dp));
+    memset(tree, 0, sizeof(tree));
+    dp[1][1] = 1;
+    for(int i = 2; i <= k; ++i){
+        for(int j = 1; j <= n; j += 2){
+        //    dp[i][j] = 0;
+            for(int t = 1; t <= j-1-t; t += 2){
+                int c = 2;
+                if(t == j-1-t){
+                    c = 1;
+                }
+                dp[i][j] += c*dp[i-1][t]*tree[i-2][j-t-1];
+                dp[i][j] += c*tree[i-2][t]*dp[i-1][j-t-1];
+                dp[i][j] += c*dp[i-1][t]*dp[i-1][j-t-1];
+                dp[i][j] %= MOD;
+            }
+        }
+        for(int t = 0; t <= n; ++t){
+            tree[i-1][t] += tree[i-2][t] + dp[i-1][t];
+            tree[i-1][t] %= MOD;
+        }
+    }
+}
+
+int main(){
+    freopen("nocows.in", "r", stdin);
+    freopen("nocows.out", "w", stdout);
+    scanf("%d%d", &n, &k);
+    solve();
+    printf("%d\n", dp[k][n]);
+    return 0;
+}
+```
+</br>
+
