@@ -666,3 +666,63 @@ int main(){
 }
 ```
 </br>
+
+* Longest Prefix
+
+题意： 给出一些单词， 然后给出一个字符串序列， 求这个序列的最长的能够由给出的单词拼接的前缀
+
+分析： 经典dp
+
+```
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<string>
+#include<vector>
+using namespace std;
+const int N = 200010;
+
+int dp[N];
+vector<string > dict;
+
+void solve(string s){
+    memset(dp, 0, sizeof(dp));
+    dp[0] = 1;
+    for(int i = 0; i < s.size(); ++i){
+        for(int j = 0; j < dict.size(); ++j){
+            if(dict[j].size() > i+1) continue;
+            string tmp = s.substr(i - dict[j].size() + 1, dict[j].size());
+            if(tmp == dict[j] && dp[i - dict[j].size() + 1]){
+                dp[i+1] = 1;
+                break;
+            }
+        }
+    }
+
+    for(int i = s.size(); i >= 0; --i){
+        if(dp[i]){
+            printf("%d\n", i);
+            break;
+        }
+    }
+}
+
+int main(){
+    freopen("prefix.in", "r", stdin);
+    freopen("prefix.out", "w", stdout);
+    dict.clear();
+    string dc, s, slice;
+    while(cin >> dc){
+        if(dc == ".") break;
+        dict.push_back(dc);
+    }
+
+    s = "";
+    while(getline(cin, slice)){
+        s += slice;
+    }
+    solve(s);
+    return 0;
+}
+```
+</br>
