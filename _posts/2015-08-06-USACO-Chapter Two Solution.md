@@ -786,3 +786,89 @@ int main(){
 ```
 </br>
 
+
+* Zero Sum
+
+题意： 1~N N个数， 在这些数字之间填上+, - 或者空格形成一个运算表达式， 要求这个表达式的结果为0
+
+分析： 典型的dfs搜索题。 这种题目就是要正确表达一层一层之间的联系。 在我的代码中， 我带入了初始的符号 +, 相当于在1之前加了一个＋号， 这样就能统一计算， 而不用分类讨论。
+
+```
+#include<cstdio>
+#include<cstring>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
+int n;
+vector<string > good;
+char ans[25];
+
+bool cmp(string a, string b){
+    return a < b;
+}
+
+void solve(int sum, int k, int cnt, int op){//当前和为sum， 当前计算到1~N中的k,  //cnt是记录结果的游标，当前保存的符号为op,  -1表示＋，-2表示－
+    int s = 0, i;
+    bool flag = false;
+    for(i = k; i <= n; ++i){
+        s = s*10 + i;
+        if(flag){
+            ans[cnt++] = -3;//blank
+        }
+        ans[cnt++] = i;
+        flag = true;
+       // printf("s  = %d\n", s);
+
+        if(i < n){
+            if(op == -1){//+
+                ans[cnt] = -1;
+                solve(sum+s, i+1, cnt+1, -1);
+                ans[cnt] = -2;
+                solve(sum+s, i+1, cnt+1, -2);
+            }
+            else{//-
+                ans[cnt] = -1;
+                solve(sum-s, i+1, cnt+1, -1);
+                ans[cnt] = -2;
+                solve(sum-s, i+1, cnt+1, -2);
+            }
+        }
+
+        else{
+            int tmp;
+            if(op == -1){
+                tmp = sum + s;
+            }
+            else if(op == -2){
+                tmp = sum - s;
+            }
+            if(tmp == 0){
+                string res = "";
+                for(int j = 0; j < cnt; ++j){
+                    if(ans[j] > 0) res += ans[j] + '0';
+                    if(ans[j] == -1) res += "+";
+                    if(ans[j] == -2) res += "-";
+                    if(ans[j] == -3) res += " ";
+                }
+                good.push_back(res);
+            }
+            return ;
+        }
+    }
+}
+
+int main(){
+    freopen("zerosum.in", "r", stdin);
+    freopen("zerosum.out", "w", stdout);
+    scanf("%d", &n);
+    good.clear();
+    solve(0, 1, 0, -1);
+    sort(good.begin(), good.end(), cmp);
+    for(int i = 0; i < good.size(); ++i){
+        printf("%s\n", good[i].c_str());
+    }
+    return 0;
+}
+```
+</br>
