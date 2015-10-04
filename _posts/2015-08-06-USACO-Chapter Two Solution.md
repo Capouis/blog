@@ -872,3 +872,43 @@ int main(){
 }
 ```
 </br>
+
+
+* Money Systems
+
+题意： 有n中面值的钱币， 给出一个v， 求有多少种方法可以用这n种钱币凑出v
+
+分析： 经典dp, 背包问题。 因为每种钱币可以任取， 所以这是完全背包问题。 所以递推顺序为正向以及设定好初始值就ok了
+
+```
+#include<cstdio>
+#include<cstring>
+using namespace std;
+const int N = 10010;
+int n, vm, v[26];
+typedef long long LL;
+LL dp[N];
+
+void solve(){
+    memset(dp, 0, sizeof(dp));
+    dp[0] = 1;
+    for(int i = 0; i < n; ++i){
+        for(int j = v[i]; j <= vm; ++j){
+            dp[j] = dp[j] + dp[j-v[i]];
+        }
+    }
+    printf("%lld\n", dp[vm]);
+}
+
+int main(){
+    freopen("money.in", "r", stdin);
+    freopen("money.out", "w", stdout);
+    scanf("%d%d", &n, &vm);
+    for(int i = 0; i < n; ++i){
+        scanf("%d", &v[i]);
+    }
+    solve();
+    return 0;
+}
+```
+</br>
