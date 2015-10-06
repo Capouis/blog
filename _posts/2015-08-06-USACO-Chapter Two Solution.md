@@ -912,3 +912,55 @@ int main(){
 }
 ```
 </br>
+
+* Controlling Companies
+
+题意： 公司之间是有控制关系的， 而且控制关系可以传递， 求哪些公司可以控制其他的公司
+
+分析： 多层传递的时候， 只要某一层的公司已经被根节点控制了， 就无所谓控制额是多少了， 因为已经能控制了， 之后的传递关系需要知道的之后的控制额的大小， 而跟本层的控制额没关系。 考虑到数据范围很小， 可以直接暴力dfs搜索
+
+```
+#include<cstdio>
+#include<cstring>
+using namespace std;
+const int N = 101;
+int a[N][N];
+int control[N];
+bool vis[N];
+
+void solve(int cur){
+    vis[cur] = true;
+    for(int i = 1; i < N; ++i){
+        control[i] += a[cur][i];
+        if(!vis[i] && control[i] > 50){
+            solve(i);
+        }
+    }
+}
+
+int main(){
+    freopen("concom.in", "r", stdin);
+    freopen("concom.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    for(int i = 0; i < n; ++i){
+        int x, y, z;
+        scanf("%d%d%d", &x, &y, &z);
+        a[x][y] = z;
+    }
+
+    for(int i = 1; i < N; ++i){
+        memset(vis, false, sizeof(vis));
+        memset(control, 0, sizeof(control));
+        solve(i);
+        for(int j = 1; j < N; ++j){
+            if(j != i && control[j] > 50){
+                printf("%d %d\n", i, j);
+            }
+        }
+    }
+    return 0;
+}
+```
+</br>
+
