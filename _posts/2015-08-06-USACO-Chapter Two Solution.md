@@ -964,3 +964,79 @@ int main(){
 ```
 </br>
 
+
+* The Tamworth Two
+
+题意：有个农夫,要找他的牛。 他们在一个10*10的castle中按着某种规则不停的走， 直到他们相遇。 这个规则很简单， 能往前走继续往前走， 不能的话就顺时针转向再走。
+
+分析： 单纯的模拟题。 情况无非就是10*10*4*10*10*4种。
+
+```
+#include<cstdio>
+#include<cstring>
+using namespace std;
+const int N = 101;
+
+int fx[4] = {-1, 0, 1, 0};
+int fy[4] = {0, 1, 0, -1};
+char s[N][N];
+bool vis[N][N][4][4];
+
+int next(int p, int d){
+    int px = p/10, py = p%10;
+    int newx = px + fx[d], newy = py + fy[d];
+    if(newx < 0 || newx >= 10 || newy < 0 || newy >= 10 || s[newx][newy] == '*')
+        return -1;
+    return 10*newx + newy;
+}
+
+int solve(int x1, int x2){
+    memset(vis, false, sizeof(vis));
+    int d1 = 0, d2 = 0;
+    int cnt = 0;
+    while(1){
+        if(vis[x1][x2][d1][d2]) return 0;
+        if(x1 == x2) return cnt;
+        vis[x1][x2][d1][d2] = true;
+        int n1 = next(x1, d1);
+        if(n1 == -1){
+            d1 = (d1 + 1)%4;
+        }
+        else{
+            x1 = n1;
+        }
+        int n2 = next(x2, d2);
+        if(n2 == -1){
+            d2 = (d2 + 1)%4;
+        }
+        else{
+            x2 = n2;
+        }
+        ++cnt;
+    }
+}
+
+int main(){
+    freopen("ttwo.in", "r", stdin);
+    freopen("ttwo.out", "w", stdout);
+    int x1, x2;
+    for(int i = 0; i < 10; ++i){
+        scanf("%s", s[i]);
+        for(int j = 0; j < 10; ++j){
+            if(s[i][j] == 'C'){
+                x1 = i*10 + j;
+            }
+            if(s[i][j] == 'F'){
+                x2 = i*10 + j;
+            }
+        }
+    }
+
+    int ans = solve(x1, x2);
+    printf("%d\n", ans);
+    return 0;
+}
+```
+</br>
+
+* 
