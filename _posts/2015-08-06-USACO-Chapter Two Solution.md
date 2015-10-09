@@ -1039,4 +1039,137 @@ int main(){
 ```
 </br>
 
-* 
+* Overfencing
+
+题意： fences形成一个mazes， 有两个入口， 不同的maze之间可能连通也可能被阻断 mazes有两个入口， 每个入口可以到达每一个maze， 现在需要求最大的maze距离入口的distance
+
+分析： 毫无疑问用bfs解决最短路， 该题的关键在于格式化输入数据。 写的有将近1h..呵呵哒
+
+```
+#include<cstdio>
+#include<cstring>
+#include<queue>
+using namespace std;
+const int N = 210;
+char s[N][N];
+bool vis[N][N];
+int dist[N][N], dist2[N][N];
+struct node{
+    int x, y;
+    int cnt;
+};
+queue<node > q;
+int m, n;
+
+void solve(int sx, int sy, int dist[][N]){
+    memset(dist, -1, sizeof(dist));
+    memset(vis, false, sizeof(vis));
+    while(!q.empty()) q.pop();
+    node tmp;
+    tmp.x = sx, tmp.y = sy, tmp.cnt = 1;
+    dist[sx][sy] = 1, vis[sx][sy] = true;
+    q.push(tmp);
+    int cnt = 0;
+    while(!q.empty()){
+        node p = q.front();
+//        printf("%d %d %d\n", p.x, p.y, p.cnt);
+        q.pop();
+        int tx = p.x, ty = p.y;
+        if(tx >= 3){
+            if(s[tx-1][ty] == ' ' && !vis[tx-2][ty]){
+                vis[tx-2][ty] = true;
+                tmp.x = tx-2, tmp.y = ty, tmp.cnt = p.cnt + 1;
+                q.push(tmp);
+                dist[tx-2][ty] = tmp.cnt;
+            }
+        }
+
+        if(tx <= (m<<1)-3){
+            if(s[tx+1][ty] == ' ' && !vis[tx+2][ty]){
+                vis[tx+2][ty] = true;
+                tmp.x = tx+2, tmp.y = ty, tmp.cnt = p.cnt + 1;
+                q.push(tmp);
+                dist[tx+2][ty] = tmp.cnt;
+            }
+        }
+
+        if(ty >= 3){
+            if(s[tx][ty-1] == ' ' && !vis[tx][ty-2]){
+                vis[tx][ty-2] = true;
+                tmp.x = tx, tmp.y = ty-2, tmp.cnt = p.cnt + 1;
+                q.push(tmp);
+                dist[tx][ty-2] = tmp.cnt;
+            }
+        }
+
+        if(ty <= (n<<1)-3){
+            if(s[tx][ty+1] == ' ' && !vis[tx][ty+2]){
+                vis[tx][ty+2] = true;
+                tmp.x = tx, tmp.y = ty+2, tmp.cnt = p.cnt + 1;
+                q.push(tmp);
+                dist[tx][ty+2] = tmp.cnt;
+            }
+        }
+    }
+}
+
+int main(){
+    freopen("maze1.in", "r", stdin);
+    freopen("maze1.out", "w", stdout);
+    scanf("%d%d", &n, &m);
+    getchar();
+    for(int i = 0; i < (m<<1|1); ++i){
+        gets(s[i]);
+    //    puts(s[i]);
+    }
+
+    int cnt = 0, x[2], y[2];
+    for(int i = 1; i < (n<<1|1); i += 2){
+        if(cnt == 2) break;
+        if(s[0][i] == ' '){
+            x[cnt] = 1, y[cnt] = i;
+            ++cnt;
+        }
+    }
+    for(int i = 1; i < (n<<1|1); i += 2){
+        if(cnt == 2) break;
+        if(s[m<<1][i] == ' '){
+            x[cnt] = (m<<1) - 1, y[cnt] = i;
+            ++cnt;
+        }
+    }
+
+    for(int i = 1; i < (m<<1|1); i += 2){
+        if(cnt == 2) break;
+        if(s[i][0] == ' '){
+            x[cnt] = i, y[cnt] = 1;
+            ++cnt;
+        }
+    }
+    for(int i = 1; i < (m<<1|1); i += 2){
+        if(cnt == 2) break;
+        if(s[i][n<<1] == ' '){
+            x[cnt] = i, y[cnt] = (n<<1) - 1;
+            ++cnt;
+        }
+    }
+
+    solve(x[0], y[0], dist);
+    solve(x[1], y[1], dist2);
+    int ans = -1;
+    for(int i = 1; i < (m<<1|1); i += 2){
+        for(int j = 1; j < (n<<1|1); j += 2){
+            int res = dist[i][j];
+            if(res > dist2[i][j]){
+                res = dist2[i][j];
+            }
+            if(res > ans){
+                ans = res;
+            }
+        }
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+```
+</br>
