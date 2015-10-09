@@ -1173,3 +1173,152 @@ int main(){
 }
 ```
 </br>
+
+
+* Cow Tours
+
+题意： 一群cows都有自己的一个坐标， 然后这些cows可以分成几个连通块。 现在可以在其中的两个连通块之间加上一条边。
+求如何加边可以使得加完边之后的大的连通块的半径最小。 这里的半径可以定义为一个连通块里面最远的两个点之间的距离。
+
+分析： 首先明确对于合并之后的连通块的半径， 它的可能来源：（假设为a,b连通块）
+
+* a的半径
+* b的半径
+* distance(u,v) + longest(u) + longest(v) (其中u,v是分别属于a,b的点)
+显然是选取这三者里面的最大值作为新的连通块的半径， 所以要枚举u,v， 来判断半径的最小值。
+
+* 所以首先将所有点分块(简单dfs进入不同的vector)
+* 根据得到的不同连通块用o(n^3)的floyd求所有点对之间的SSSP，  
+* 然后遍历一遍可以求得某个点x在某块里面距离它最远的点离他 的距离
+* 然后再枚举不同的连通块，求它的半径， 并且选取最小值
+
+由于刚开始理解错题意， 以为只有两个连通块， wa了好长时间...WTF!!!
+
+```
+#include<cstdio>
+#include<cstring>
+#include<vector>
+#include<cmath>
+using namespace std;
+typedef long long LL;
+const int N = 151;
+const int INF = 0x3f3f3f3f;
+double dist[N][N];
+bool vis[N];
+char s[N][N];
+int x[N], y[N];
+int n;
+double longest[N];
+vector<vector<int > > g;
+vector<double > farest;
+
+void solve1(int k, vector<int > &g){
+    vis[k] = true;
+    g.push_back(k);
+    for(int i = 0; i < n; ++i){
+        if(s[k][i] == '1' && !vis[i]){
+            solve1(i, g);
+        }
+    }
+}
+
+double CalDist(int i, int j){
+    return sqrt((x[j]-x[i])*(x[j]-x[i]) + (y[j]-y[i])*(y[j]-y[i]));
+}
+
+int main(){
+    freopen("cowtour.in", "r", stdin);
+    freopen("cowtour.out", "w", stdout);
+    scanf("%d", &n);
+    for(int i = 0; i < n; ++i){
+        scanf("%d%d", &x[i], &y[i]);
+    }
+    for(int i = 0; i < n; ++i){
+        scanf("%s", s[i]);
+    }
+    memset(vis, false, sizeof(vis));
+
+    for(int i = 0; i < n; ++i){
+        vector<int > q;
+        if(!vis[i]){
+            solve1(i, q);
+            g.push_back(q);
+        }
+    }
+
+    for(int i = 0; i < n; ++i){
+        for(int j = 0; j < n; ++j){
+            dist[i][j] = INF;
+        }
+    }
+    memset(longest, 0, sizeof(longest));
+    for(int x = 0; x < g.size(); ++x){
+        vector<int > point = g[x];
+        for(int i = 0; i < point.size(); ++i){
+            dist[point[i]][point[i]] = 0;
+            for(int j = 0; j < point.size(); ++j){
+                if(s[point[i]][point[j]] == '1'){
+                    dist[point[i]][point[j]] = CalDist(point[i], point[j]);
+                }
+            }
+       }
+
+        for(int k = 0; k < point.size(); ++k){
+            for(int i = 0; i < point.size(); ++i){
+                for(int j = 0; j < point.size(); ++j){
+                    if(i != j && dist[point[i]][point[k]] + dist[point[k]][point[j]] < dist[point[i]][point[j]]){
+                        dist[point[i]][point[j]] = dist[point[i]][point[k]] + dist[point[k]][point[j]];
+                    }
+                }
+            }
+        }
+
+        double ans1 = 0;
+        for(int i = 0; i < point.size(); ++i){
+            for(int j = 0; j < point.size(); ++j){
+                if(dist[point[i]][point[j]] > ans1){
+                    ans1 = dist[point[i]][point[j]];
+                }
+                if(dist[point[i]][point[j]] > longest[point[i]]){
+                    longest[point[i]] = dist[point[i]][point[j]];
+                }
+            }
+        }
+        farest.push_back(ans1);
+    }
+
+    /*
+    for(int i = 0; i < farest.size(); ++i){
+        printf("%lf ", farest[i]);
+    }
+    for(int i = 0; i < n; ++i){
+        printf("%lf ", longest[i]);
+    }*/
+
+    double ans = 1e9;
+    for(int i = 0; i < g.size(); ++i){
+        for(int j = i+1; j < g.size(); ++j){
+            vector<int > u = g[i], v = g[j];
+            double ans1 = 1e9;
+            for(int l = 0; l < u.size(); ++l){
+                for(int k = 0; k < v.size(); ++k){
+                    double tmp = CalDist(u[l], v[k]) + longest[u[l]] + longest[v[k]];
+                    if(tmp < farest[i]) tmp = farest[i];
+                    if(tmp < farest[j]) tmp = farest[j];
+                    if(tmp < ans1){
+                        ans1 = tmp;
+                    }
+                }
+            }
+            if(ans1 < ans){
+                ans = ans1;
+            }
+
+        }
+    }
+    printf("%.6lf\n", ans);
+    return 0;
+}
+```
+</br>
+
