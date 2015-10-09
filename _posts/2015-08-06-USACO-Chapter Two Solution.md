@@ -1404,3 +1404,87 @@ int main(){
 ```
 </br>
 
+
+* Fractions to Decimals
+
+题意： 给出n, k， 求出n/k的小数形式， 要么是有限小数， 要么是无限循环小数
+
+分析： 模拟除法过程， 记录出现的余数， 要么除尽， 要么寻找余数的循环节。
+注意每76个字符输出一行， 所以每输出一个字符都要记录当前输出字符个数
+
+```
+#include<cstdio>
+#include<cstring>
+using namespace std;
+const int N = 1e5 + 10;
+int v[N], p[N];
+
+int main(){
+    freopen("fracdec.in", "r", stdin);
+    freopen("fracdec.out", "w", stdout);
+    int n, k;
+    scanf("%d%d", &n, &k);
+    int d = n%k, cnt = 0;
+    memset(v, -1, sizeof(v));
+    printf("%d.", n/k);
+    int x = n/k;
+    int ccc = 0;
+    if(x == 0){
+        ccc = 1;
+    }
+    while(x){
+        ++ccc, x /= 10;
+    }
+    ++ccc;
+    //printf("%d  ", ccc);
+    while(1){
+        if(d == 0){
+            if(cnt == 0){
+                printf("0");
+            }
+            for(int i = 0; i < cnt; ++i){
+                if(ccc%76 == 0){
+                    printf("\n");
+                }
+                ++ccc;
+                printf("%d", p[i]);
+            }
+            break;
+        }
+        if(v[d] != -1){
+            int pos = v[d];
+            for(int i = 0; i < pos; ++i){
+                if(ccc%76 == 0){
+                    printf("\n");
+                }
+                ++ccc;
+                printf("%d", p[i]);
+            }
+            if(ccc%76 == 0){
+                puts("");
+            }
+            ++ccc;
+            printf("(");
+            for(int i = pos; i < cnt; ++i){
+                if(ccc%76 == 0) printf("\n");
+                ++ccc;
+                printf("%d", p[i]);
+            }
+            if(ccc%76 == 0){
+                puts("");
+            }
+            ++ccc;
+            printf(")");
+            break;
+        }
+        v[d] = cnt;
+        p[cnt++] = (d*10)/k;
+        d = (d*10)%k;
+    }
+    printf("\n");
+    return 0;
+}
+```
+</br>
+
+第二章完结， 整体来说， 第二章属于算法基础题， 没有什么高级算法， 但是考察编程基本功。 有些题目看起来实现简单，然而容易出错， 而且如何将问题用代码精准的高效的描述出来是一个重点
