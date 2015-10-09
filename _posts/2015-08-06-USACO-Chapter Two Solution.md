@@ -1322,3 +1322,85 @@ int main(){
 ```
 </br>
 
+* Bessie Come Home
+
+题意： 给出一些road的连接， 现在要从Z出发， 寻找最短路
+
+分析： 考虑到点的范围在'a-z' 'A-Z'之间， 直接ASCII表走起。。 然后dijkstra寻路ok， 注意dijkstra的结束条件～
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 128;
+const int INF = 1e9;
+int a[N][N];
+int dist[N];
+bool vis[N];
+
+void solve(int src){
+    dist[src] = 0;
+    while(1){
+        int min = INF, minj = -1;
+        for(int i = 0; i < N; ++i){
+            if(!vis[i] && dist[i] < min){
+                min = dist[i];
+                minj = i;
+            }
+        }
+        if(min >= INF){
+            break;
+        }
+        vis[minj] = true;
+        bool flag = false;
+        for(int i = 0; i < N; ++i){
+            if(dist[minj] + a[minj][i] < dist[i]){
+                dist[i] = dist[minj] + a[minj][i];
+                flag = true;
+            }
+        }
+    }
+}
+
+int main(){
+    freopen("comehome.in", "r", stdin);
+    freopen("comehome.out", "w", stdout);
+    int n;
+    scanf("%d", &n);
+    getchar();
+    for(int i = 0; i < N; ++i){
+        dist[i] = INF;
+    }
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
+            a[i][j] = INF;
+        }
+    }
+    for(int i = 0; i < n; ++i){
+        char x, y;
+        int d;
+        scanf("%c %c %d", &x, &y, &d);
+        if(d < a[x][y]){
+            a[x][y] = d, a[y][x] = d;
+        }
+        getchar();
+    }
+
+    memset(vis, false, sizeof(vis));
+    solve('Z');
+    int ans = INF, pos;
+    for(int i = 0; i < N; ++i){
+        if(i >= 'A' && i < 'Z' && dist[i] != INF){
+            if(ans > dist[i]){
+                ans = dist[i];
+                pos = i;
+            }
+        }
+    }
+    printf("%c %d\n", pos, ans);
+    return 0;
+}
+```
+</br>
+
