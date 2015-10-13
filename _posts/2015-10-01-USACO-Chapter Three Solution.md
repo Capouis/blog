@@ -4,6 +4,75 @@ title: USACO-Chapter Three Solution
 comments: true
 ---
 
+* Agri-Net
+
+题意：给出图的邻接矩阵， 求最小生成树
+
+分析：求MST最常用的方法是prim ｜ kruskal， 我习惯用kruskal
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 101;
+int maze[N][N], fa[N];
+int n, m;
+
+struct node{
+    int x, y, z;
+}a[N*N];
+
+bool cmp(const node &x, const node &y){
+    return x.z < y.z;
+}
+
+int find(int x){
+    if(fa[x] != x){
+        fa[x] = find(fa[x]);
+    }
+    return fa[x];
+}
+
+void solve(){
+    sort(a, a+m, cmp);
+    int ans = 0, cnt = 0;
+    for(int i = 0; i < m; ++i){
+        int fx = find(a[i].x);
+        int fy = find(a[i].y);
+        if(fx != fy){
+            fa[fx] = fy;
+            ans += a[i].z;
+            ++cnt;
+            if(cnt == n-1){
+                printf("%d\n", ans);
+                return ;
+            }
+        }
+    }
+}
+
+int main(){
+    freopen("agrinet.in", "r", stdin);
+    freopen("agrinet.out", "w", stdout);
+    scanf("%d", &n);
+    m = 0;
+    for(int i = 0; i < n; ++i){
+        for(int j = 0; j < n; ++j){
+            scanf("%d", &maze[i][j]);
+            if(i < j && maze[i][j]){
+                a[m].x = i, a[m].y = j, a[m++].z = maze[i][j];
+            }
+        }
+    }
+    for(int i = 0; i < n; ++i){
+        fa[i] = i;
+    }
+    solve();
+    return 0;
+}
+```
+</br>
 
 * A Game
 
