@@ -74,6 +74,50 @@ int main(){
 ```
 </br>
 
+* Score Inflation
+
+题意： 经典完全背包的背景
+
+分析： 经典完全背包
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+const int N = 1e4+10;
+int dp[N];
+int w[N], v[N];
+int n, v_;
+
+int maxab(int a, int b){
+    if(a > b) return a;
+    return b;
+}
+
+void solve(){
+    for(int i = 0; i < n; ++i){
+        for(int j = w[i]; j <= v_; ++j){
+            dp[j] = maxab(dp[j-w[i]] + v[i], dp[j]);
+        }
+    }
+    printf("%d\n", dp[v_]);
+}
+
+int main(){
+   freopen("inflate.in", "r", stdin);
+   freopen("inflate.out", "w", stdout);
+   scanf("%d%d", &v_, &n);
+    for(int i = 0; i < n; ++i){
+        scanf("%d%d", &v[i], &w[i]);
+    }
+    solve();
+    return 0;
+}
+```
+</br>
+
+
 * A Game
 
 题意：两个人玩一个取牌的游戏， 一堆牌排成一列，每张牌都有一个值， 现在两个人每次可以从两头中的任意一头抽一张牌，
