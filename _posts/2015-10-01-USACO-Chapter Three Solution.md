@@ -168,3 +168,121 @@ int main(){
 }
 ```
 </br>
+
+
+* Humble Numbers
+
+题意：有n个prime数， 现在需要求第m个humble数， humble要求质因数只包含给出的n个prime中若干
+
+分析： 刚开始由于没注意到数据的范围， 直接上set跟priority_queue， 后来发现memory efficiency是优化不掉的。 所以要从源头上改变。 每次构造一个新的humble数， 只要枚举n个prime数， 乘上当前的humble数， 找出最小的（大于当前humble数最大值）的数。 在枚举的时候为了提高效率，  不要每次暴力的从头开始枚举， 可以记录上一次记录的位置， 下次查找肯定是从当前位置之后找。
+
+无法优化空间的代码， 过了11个测试点：
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<set>
+#include<queue>
+#include<vector>
+using namespace std;
+typedef long long LL;
+vector<int > base;
+set<LL > isExist;
+priority_queue<LL, vector<LL>, greater<LL> > pq;
+int n, m;
+
+void solve(){
+    pq.push(1LL);
+    isExist.insert(1LL);
+    int cnt = 0;
+    while(true){
+        LL p = pq.top();
+        pq.pop(), ++cnt;
+        if(cnt == m+1){
+            printf("%lld\n", p);
+            return ;
+        }
+        //if(cnt > m+1) continue;
+        for(int i = 0; i < n; ++i){
+            LL res = p*base[i];
+            if(!isExist.count(res)){
+                pq.push(res);
+                isExist.insert(res);
+            }
+        }
+    }
+}
+
+int main(){
+    freopen("humble.in", "r", stdin);
+    freopen("humble.out", "w", stdout);
+    scanf("%d%d", &n, &m);
+    base.clear();
+    int input;
+    for(int i = 0; i < n; ++i){
+        scanf("%d", &input);
+        base.push_back(input);
+    }
+    solve();
+    return 0;
+}
+
+```
+
+AC的代码：
+
+```
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+using namespace std;
+const int N  = 1e5+10;
+const int N_ = 1e2 + 1;
+typedef long long LL;
+//vector<LL > ans;
+LL ans[N];
+int cnt;
+int n, m;
+int base[N_], pos[N_];
+//vector<int > base, pos;
+
+void solve(){
+    for(int i = 0; i < n; ++i){
+        pos[i] = 0;
+    }
+
+    cnt = 0;
+    ans[cnt++] = 1;
+    LL min, minPos;
+    while(cnt <= m){
+        min = 1e20;
+        for(int i = 0; i < n; ++i){
+            while(base[i]*ans[pos[i]] <= ans[cnt-1]){
+                pos[i]++;
+            }
+            if(base[i]*ans[pos[i]] < min){
+                min = base[i]*ans[pos[i]];
+                minPos = i;
+            }
+        }
+
+        ans[cnt++] = min;
+        ++pos[minPos];
+    }
+    printf("%lld\n", ans[cnt-1]);
+}
+
+int main(){
+    freopen("humble.in", "r", stdin);
+    freopen("humble.out", "w", stdout);
+    scanf("%d%d", &n, &m);
+    for(int i = 0; i < n; ++i){
+        scanf("%d", &base[i]);
+    }
+    solve();
+    return 0;
+}
+```
+</br>
