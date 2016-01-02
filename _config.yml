@@ -1,12 +1,12 @@
-username: capouis
+username: CAPOUIS
 baseurl: /blog
 markdown: redcarpet
 safe: false
 highlighter: pygments
-title: tcOops
+title: CAPOUIS
 description: Thoughts and Practice of Computer Science. 
 theme: slate
-disqusname: tcOops
+disqusname: CAPOUIS
 
 # theme can be: hack, leap-day, merlot, midnight, minimal, modernist, slate, time-machine
 # those themes are all come from GitHub Pages Themes
