@@ -4,7 +4,7 @@ markdown: redcarpet
 safe: false
 highlighter: pygments
 title: CAPOUIS
-description: Thoughts and Practice of Computer Science. 
+description: Good guys do win!
 theme: slate
 disqusname: CAPOUIS
 
